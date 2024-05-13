@@ -133,6 +133,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="css\scriptMaster.js" />
     <Content Include="css\styleConsultarPacientes.css" />
+    <Content Include="css\styleDetallesPaciente.css" />
     <Content Include="css\styleLogin.css" />
     <Content Include="css\styleMaster.css" />
     <Content Include="css\stylePaciente.css" />
@@ -267,7 +268,10 @@
     <Content Include="TestView\script.js" />
     <Content Include="TestView\style.css" />
     <Content Include="View\Inicio\Login.aspx" />
+    <Content Include="View\Inicio\Login.js" />
+    <Content Include="View\Inicio\Soporte.aspx" />
     <Content Include="View\Pacientes\ConsultarDetallesPaciente.aspx" />
+    <Content Include="View\Pacientes\ConsultarPaciente2.js" />
     <Content Include="View\Pacientes\ConsultarPacientes.aspx" />
     <Content Include="View\Pacientes\ConsultarPacientes.js" />
     <Content Include="View\Pacientes\ModificarPaciente.aspx" />
@@ -324,7 +328,8 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Controller\C_Paciente.cs" />
+    <Compile Include="Controller\ControllerLogin.cs" />
+    <Compile Include="Controller\ControllerPaciente.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -335,7 +340,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Alergia.cs" />
+    <Compile Include="Models\ApiRespuesta.cs" />
+    <Compile Include="Models\ConsuPacien.cs" />
+    <Compile Include="Models\DetalleInterno.cs" />
+    <Compile Include="Models\Diagnostico.cs" />
+    <Compile Include="Models\LoginRespuesta.cs" />
     <Compile Include="Models\Paciente.cs" />
+    <Compile Include="Models\PacienteModificar.cs" />
+    <Compile Include="Models\PacienteResponsable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -364,6 +377,13 @@
     </Compile>
     <Compile Include="View\Inicio\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Inicio\Soporte.aspx.cs">
+      <DependentUpon>Soporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Inicio\Soporte.aspx.designer.cs">
+      <DependentUpon>Soporte.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\Pacientes\ConsultarDetallesPaciente.aspx.cs">
       <DependentUpon>ConsultarDetallesPaciente.aspx</DependentUpon>

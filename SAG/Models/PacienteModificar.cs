@@ -5,17 +5,14 @@ using System.Web;
 
 namespace SAG.Models
 {
-    public class Paciente
+    public class PacienteModificar
     {
-
-       
-
         public int IdPaciente { get; set; }
         public string Nombres { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public string CURP { get; set; }
-        public DateTime FechaNacimiento { get; set; }
+        public dynamic FechaNacimiento { get; set; }
         public string Sexo { get; set; }
         public string EntidadNacimiento { get; set; }
         public string Afiliacion { get; set; }
@@ -35,35 +32,22 @@ namespace SAG.Models
         public string CorreoElectronico { get; set; }
         public string Ocupacion { get; set; }
 
+        public string NombresResponsable { get; set; }
+        public string ApellidoPaternoResponsable { get; set; }
+        public string ApellidoMaternoResponsable { get; set; }
+        public string ParentescoResponsable { get; set; }
+        public string DomicilioResponsable { get; set; }
+        public string TelefonoResponsable { get; set; }
 
-        public DateTime FechaRegistro { get; set; }
         public DateTime FechaModificacion { get; set; }
-        public int NumeroExpediente { get; set; }
 
-        //constructor vacio
-        public Paciente()
+        public PacienteModificar()
         {
+
         }
 
-        //constructor con parametros
-        public Paciente(int idPaciente, string nombres, string apellidoPaterno, string apellidoMaterno, string cURP, DateTime fechaNacimiento, string sexo, string entidadNacimiento, string afiliacion, string numeroAfiliacion, DateTime fechaRegistro, DateTime fechaModificacion, int numeroExpediente)
-        {
-            IdPaciente = idPaciente;
-            Nombres = nombres;
-            ApellidoPaterno = apellidoPaterno;
-            ApellidoMaterno = apellidoMaterno;
-            CURP = cURP;
-            FechaNacimiento = fechaNacimiento;
-            Sexo = sexo;
-            EntidadNacimiento = entidadNacimiento;
-            Afiliacion = afiliacion;
-            NumeroAfiliacion = numeroAfiliacion;
-            FechaRegistro = fechaRegistro;
-            FechaModificacion = fechaModificacion;
-            NumeroExpediente = numeroExpediente;
-        }
+        
+
+
     }
-
-
-
 }

@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 using SAG.Models;
 using SAG.Controller;
+using System.Web.Script.Serialization;
 
 namespace SAG.View.Pacientes
 {
@@ -18,37 +19,41 @@ namespace SAG.View.Pacientes
             
         }
 
-        /*public static void InsertarPaciente()
+        [WebMethod]
+        public static string Consultar()
         {
-            Models.Paciente paciente = new Models.Paciente();
-            App_Code.Paciente pac = new App_Code.Paciente();
+            ApiRespuesta respuesta = new ApiRespuesta();
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
+
             try
             {
-                paciente.Nombres = "Juan";
-                paciente.ApellidoPaterno = "Perez";
-                paciente.ApellidoMaterno = "Gomez";
-                paciente.CURP = "PEGOJU";
-                paciente.FechaNacimiento = DateTime.Now;
-                paciente.Sexo = "M";
-                paciente.EntidadNacimiento = "CDMX";
-                paciente.Afiliacion = "IMSS";
-                paciente.NumeroAfiliacion = "123456789";
-                paciente.FechaRegistro = DateTime.Now;
-                paciente.FechaModificacion = DateTime.Now;
-                paciente.NumeroExpediente = 1;
-                pac.InsertarPaciente();
+                respuesta.Action = "Consultar Pacientes";
+                respuesta.Result = "1";
+                respuesta.Message = "Consulta Correcta";
+                respuesta.Data = controllerPaciente.RecuperarPacientes();
+                respuesta.DataList = null;
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                return js.Serialize(respuesta);
             }
             catch (Exception ex)
             {
-                throw ex;
+                return ex.Message;
             }
-        }*/
+        }
+
 
         [WebMethod]
-        public static void InsertarPaciente(string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, DateTime FechaNacimiento, string Sexo, string EntidadNacimiento, string Afiliacion, string NumeroAfiliacion, DateTime FechaRegistro, DateTime FechaModificacion, int NumeroExpediente)
+        public static string InsertarPaciente(string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, DateTime FechaNacimiento, string Sexo, 
+            string EntidadNacimiento, string Afiliacion, string NumeroAfiliacion,
+            string Direccion, string NumeroExterior, string NumeroInterior, string Colonia, string CodigoPostal, string Municipio, string Estado, string Pais, 
+            string TelefonoTrabajo, string TelefonoCasa, string TelefonoCelular, string CorreoElectronico, string Ocupacion,
+            string NombresResponsable, string ApellidoPaternoResponsable, string ApellidoMaternoResponsable, string ParentescoResponsable, string DomicilioResponsable, string TelefonoResponsable)
         {
             Models.Paciente paciente = new Models.Paciente();
-            
+            Models.PacienteResponsable responsable = new Models.PacienteResponsable();
+            Models.ApiRespuesta respuesta = new Models.ApiRespuesta();
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
             
             try
             {
@@ -61,15 +66,43 @@ namespace SAG.View.Pacientes
                 paciente.EntidadNacimiento = EntidadNacimiento;
                 paciente.Afiliacion = Afiliacion;
                 paciente.NumeroAfiliacion = NumeroAfiliacion;
-                paciente.FechaRegistro = FechaRegistro;
-                paciente.FechaModificacion = FechaModificacion;
-                paciente.NumeroExpediente = NumeroExpediente;
-                //paciente.InsertarPaciente();
+                paciente.Direccion = Direccion;
+                paciente.NumeroExterior = NumeroExterior;
+                paciente.NumeroInterior = NumeroInterior;
+                paciente.Colonia = Colonia;
+                paciente.CodigoPostal = CodigoPostal;
+                paciente.Municipio = Municipio;
+                paciente.Estado = Estado;
+                paciente.Pais = Pais;
+                paciente.TelefonoTrabajo = TelefonoTrabajo;
+                paciente.TelefonoCasa = TelefonoCasa;
+                paciente.TelefonoCelular = TelefonoCelular;
+                paciente.CorreoElectronico = CorreoElectronico;
+                paciente.Ocupacion = Ocupacion;
+                paciente.FechaRegistro = DateTime.Now;
+                paciente.FechaModificacion = DateTime.Now;
+
+                responsable.Nombres = NombresResponsable;
+                responsable.ApellidoPaterno = ApellidoPaternoResponsable;
+                responsable.ApellidoMaterno = ApellidoMaternoResponsable;
+                responsable.Parentesco = ParentescoResponsable;
+                responsable.Domicilio = DomicilioResponsable;
+                responsable.Telefono = TelefonoResponsable;
+
+                //controllerPaciente.InsertarPaciente(paciente, responsable);
+                
+                respuesta.Action = "Registrar Paciente";
+                respuesta.Result = "1";
+                respuesta.Message = "Paciente registrado correctamente";
+                respuesta.Data = controllerPaciente.InsertarPaciente(paciente, responsable);
+
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                return js.Serialize(respuesta);
                 
             }
             catch (Exception ex)
             {
-                throw ex;
+                return ex.Message;
             }
         }   
 

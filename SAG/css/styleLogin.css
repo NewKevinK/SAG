@@ -180,3 +180,40 @@ body {
     margin-top: 30px;
     text-align: center;
 }
+
+.submit input:hover {
+    background-color: #265df2;
+}
+
+.form .submit input {
+    border: none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    background-color: #9f002f;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+.form .botton {
+    margin-top: 35px;
+}
+
+    .form .botton input {
+        border: none;
+        color: #fff;
+        font-size: 17px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        border-radius: 6px;
+        background-color: #9f002f;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+.botton input:hover {
+    background-color: #265df2;
+}

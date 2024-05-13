@@ -13,6 +13,8 @@
     <link href="css/styleMaster.css" rel="stylesheet" />
     <!-- Boxicons CSS -->
     <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     
     <asp:ContentPlaceHolder ID="MainContent" runat="server"> </asp:ContentPlaceHolder>
 
@@ -46,10 +48,31 @@
                         </a>
                     </li>
                     <li class="list">
-                        <a href="#" class="nav-link">
+                        <a href="/View/Pacientes/ConsultarDetallesPaciente.aspx" class="nav-link">
                             <i class="bx bx-bell icon"></i>
                             <span class="link">Oficios</span>
                         </a>
+                    </li>
+                    <li class="item">
+                        <div class="submenu-item">
+                            <span>First submenu</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <ul class="menu-items submenu">
+                            <div class="menu-title">
+                                <i class="fa-solid fa-chevron-left"></i>
+                                Your submenu title
+                            </div>
+                            <li class="item">
+                                <a href="Contact.aspx">First sublink</a>
+                            </li>
+                            <li class="item">
+                                <a href="#">First sublink</a>
+                            </li>
+                            <li class="item">
+                                <a href="#">First sublink</a>
+                            </li>
+                        </ul>
                     </li>
                     
                     
@@ -72,7 +95,54 @@
         </div>
     </nav>
     <section class="overlay"></section>
-    <script src="css/scriptMaster.js"></script>
+    <script>
+        const navBar = document.querySelector("nav"),
+            menuBtns = document.querySelectorAll(".menu-icon"),
+            overlay = document.querySelector(".overlay");
+
+        menuBtns.forEach((menuBtn) => {
+            menuBtn.addEventListener("click", () => {
+                navBar.classList.toggle("open");
+            });
+        });
+
+        overlay.addEventListener("click", () => {
+            navBar.classList.remove("open");
+        });
+
+        //sub
+        const sidebar = document.querySelector(".sidebar");
+        const sidebarClose = document.querySelector("#sidebar-close");
+        const menu = document.querySelector(".menu-content");
+        const menuItems = document.querySelectorAll(".submenu-item");
+        const subMenuTitles = document.querySelectorAll(".submenu .menu-title");
+
+        sidebarClose.addEventListener("click", () => sidebar.classList.toggle("close"));
+
+        menuItems.forEach((item, index) => {
+            item.addEventListener("click", () => {
+                menu.classList.add("submenu-active");
+                item.classList.add("show-submenu");
+                menuItems.forEach((item2, index2) => {
+                    if (index !== index2) {
+                        item2.classList.remove("show-submenu");
+                    }
+                });
+            });
+        });
+
+        subMenuTitles.forEach((title) => {
+            title.addEventListener("click", () => {
+                menu.classList.remove("submenu-active");
+            });
+        });
+
+    </script>
+    
+    <script src="/../css/scriptMaster.js"></script>
+    <script src="/css/scriptMaster.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </body>
 
 

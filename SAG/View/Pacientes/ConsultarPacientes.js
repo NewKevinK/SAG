@@ -20,7 +20,7 @@ const dataTableOptions = {
        }
     }
 };
-
+/*
 const initDataTable = async () => {
     if (dataTableIsInitialized) {
         dataTable.destroy();
@@ -59,7 +59,59 @@ const listUsers = async () => {
         alert(ex);
     }
 }
+*/
+
+
+
+function dtUsers() {
+    var table = $('#datatable_users').DataTable({
+        destroy: true,
+        responsive: true,
+        ajax: {
+            method: "POST",
+            url: 'ConsultarPacientes.aspx/ConsultarPacientesSAG',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: function (d) {
+                return JSON.stringify(d);
+            },
+            dataSrc: "d.data"
+        },
+        columns: [
+            { "data": "IdPaciente" },
+            { "data": "FechaRegistro" },
+            { "data": "CURP" },
+            { "data": "ApellidoPaterno" },
+            { "data": "ApellidoMaterno" },
+            { "data": "Nombres" },
+            { "data": "Diagnostico" },
+            { "data": "correo" }
+        ]
+
+
+
+    });
+
+}
+function test() {
+    $.ajax({
+        method: "POST",
+        url: "ConsultarPacientes.aspx/ConsultarPacientesSAG",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    }).done(function (info) {
+        console.log(info);
+    });
+}
+
+
+
+
+
+
+
 
 window.addEventListener("load", async () => {
     await initDataTable();
 });
+
