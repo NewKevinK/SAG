@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
@@ -18,11 +25,11 @@
     
 
 <body>
-    <div class="container">
+    <div class="container" ng-app="appFormulario">
         <header>Registrar nuevo Paciente</header>
 
         <form action="#">
-            <div class="form first" ng-app="appFormulario" ng-controller="ctrlFormulario" ng-submit="login()">
+            <div class="form first"  ng-controller="ctrlFormulario" ng-submit="login()">
                 <div class="details personal">
                     <span class="title">Informacion del Paciente</span>
 
@@ -165,11 +172,31 @@
                             <input type="text" ng-model="ngTelefonoResponsable" ng-pattern="/^[0-9]+$/" placeholder="Telefono del responsable" >
                         </div>
                         
-                        <button class="nextBtn" ng-click="RegistrarPaciente()" type="submit">
+                        <button class="nextBtn" ng-click="RegistrarPaciente()" type="button">
                             <span class="btnText">Siguiente</span>
                             <i class="uil uil-navigator"></i>
                             
                         </button>
+                    </div>
+                </div>
+
+                <!-- Modal para mostrar el resultado -->
+                <div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="resultadoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="resultadoModalLabel">Resultado del Registro</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {{mensajeModal}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -188,54 +215,7 @@
 
     app.controller('ctrlFormulario', function ($scope, $http, $window) {
 
-        /*$scope.validarCampos = function () {
-            // Define un arreglo para almacenar los nombres de los campos que están vacíos
-            var camposVacios = [];
-
-            // Verifica cada campo requerido y agrega su nombre al arreglo si está vacío
-            if (!$scope.ngNombres) camposVacios.push('Nombres');
-            if (!$scope.ngApellidoPaterno) camposVacios.push('Apellido Paterno');
-            if (!$scope.ngApellidoMaterno) camposVacios.push('Apellido Materno');
-            if (!$scope.ngCURP) camposVacios.push('CURP');
-            if (!$scope.ngFechaNacimiento) camposVacios.push('Fecha de Nacimiento');
-            if (!$scope.ngSexo) camposVacios.push('Sexo');
-            if (!$scope.ngEntidadNacimiento) camposVacios.push('Entidad de Nacimiento');
-            if (!$scope.ngAfiliacion) camposVacios.push('Afiliacion');
-            if (!$scope.ngNumeroAfiliacion) camposVacios.push('Numero de afiliacion');
-            if (!$scope.ngDireccion) camposVacios.push('Direccion');
-            if (!$scope.ngNumeroExterior) camposVacios.push('Numero exterior');
-            if (!$scope.ngNumeroInterior) camposVacios.push('Numero interior');
-            if (!$scope.ngColonia) camposVacios.push('Colonia');
-            if (!$scope.ngCodigoPostal) camposVacios.push('Codigo Postal');
-            if (!$scope.ngMunicipio) camposVacios.push('Municipio');    
-            if (!$scope.ngEstado) camposVacios.push('Estado');
-            if (!$scope.ngPais) camposVacios.push('Pais');
-            if (!$scope.ngTelefonoTrabajo) camposVacios.push('Telefono Trabajo');
-            if (!$scope.ngTelefonoCasa) camposVacios.push('Telefono Casa');
-            if (!$scope.ngTelefonoCelular) camposVacios.push('Telefono Celular');
-            if (!$scope.ngCorreoElectronico) camposVacios.push('Correo electronico');
-            if (!$scope.ngOcupacion) camposVacios.push('Ocupacion');
-            if (!$scope.ngNombresResponsable) camposVacios.push('Nombres del responsable');
-            if (!$scope.ngApellidoPaternoResponsable) camposVacios.push('Apellido Paterno del responsable');
-            if (!$scope.ngApellidoMaternoResponsable) camposVacios.push('Apellido Materno del responsable');
-            if (!$scope.ngParentescoResponsable) camposVacios.push('Parentesco');
-            if (!$scope.ngDomicilioResponsable) camposVacios.push('Domicilio');
-            if (!$scope.ngTelefonoResponsable) camposVacios.push('Telefono');
-
-            // Agrega más campos según sea necesario...
-
-            // Si hay campos vacíos, muestra un mensaje de alerta y retorna false
-            if (camposVacios.length > 0) {
-                var mensaje = 'Los siguientes campos son obligatorios y no pueden estar vacíos:\n';
-                mensaje += camposVacios.join('\n');
-                alert(mensaje);
-                return false;
-            }
-
-            // Si todos los campos requeridos están llenos, retorna true
-            return true;
-        }*/
-
+        
 
 
         $scope.RegistrarPaciente = function () {
@@ -273,14 +253,14 @@
                 DomicilioResponsable:"", DomicilioResponsable: $scope.ngDomicilioResponsable,
                 TelefonoResponsable:"", TelefonoResponsable: $scope.ngTelefonoResponsable
             };
-            alert("va aentrar ");
+            //alert("va aentrar ");
             //if (!$scope.ngNumeroInterior) mydata.NumeroInterior: "test";
-            alert(mydata.FechaNacimiento);
-            alert(mydata.NumeroInterior);
+            //alert(mydata.FechaNacimiento);
+            //alert(mydata.NumeroInterior);
             //Wed May 15 2024 00:00:00 GMT-0600 (hora estándar central)
             //Falta la validacion solamente
             try {
-                alert("entro al");
+                alert("entro al post");
                 $http({
                     method: 'POST',
                     url: 'https://localhost:44377/View/Pacientes/RegistrarPaciente.aspx/InsertarPaciente',
@@ -288,23 +268,61 @@
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
                     dataType: 'json'
                 }).then(function (response) {
-                    //var paciente = response.data.d[0];
-                    alert(response.data.d);
+                    alert("entro al then");
+                    
+                    var resultado = response.data.d;
+                    //alert(resultado);
+                    //alert(resultado.Message);
+                    alert(resultado.Result);
 
-                    //alert(paciente.Nombres);
-                    //alert(paciente.FechaNacimiento);
-                    //$scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
-
-                    //$scope.Paciente = paciente;
+                    
+                    if (resultado.Result == 1) {
+                        $scope.mensajeModal = "Paciente registrado exitosamente.";
+                        $scope.resetForm(); 
+                    } else {
+                        alert("entro al 0");
+                        $scope.mensajeModal = "Error: " + resultado.Message;
+                    }
+                    $('#resultadoModal').modal('show');
 
                 });
             } catch (ex) {
+                $scope.mensajeModal = "Error en el registro: " + error.message;
+                $('#resultadoModal').modal('show');
                 alert(ex);
             }
-
-            
-
         }
+
+        $scope.resetForm = function () {
+            $scope.ngNombre = '';
+            $scope.ngApellidoPaterno = '';
+            $scope.ngApellidoMaterno = '';
+            $scope.ngCURP = '';
+            $scope.ngFechaNacimiento = '';
+            $scope.ngSexo = '';
+            $scope.ngEntidadNacimiento = '';
+            $scope.ngAfiliacion = '';
+            $scope.ngNumeroAfiliacion = '';
+            $scope.ngDireccion = '';
+            $scope.ngNumeroExterior = '';
+            $scope.ngNumeroInterior = '';
+            $scope.ngColonia = '';
+            $scope.ngCodigoPostal = '';
+            $scope.ngMunicipio = '';
+            $scope.ngEstado = '';
+            $scope.ngPais = '';
+            $scope.ngTelefonoTrabajo = '';
+            $scope.ngTelefonoCasa = '';
+            $scope.ngTelefonoCelular = '';
+            $scope.ngCorreoElectronico = '';
+            $scope.ngOcupacion = '';
+            $scope.ngNombresResponsable = '';
+            $scope.ngApellidoPaternoResponsable = '';
+            $scope.ngApellidoMaternoResponsable = '';
+            $scope.ngParentescoResponsable = '';
+            $scope.ngDomicilioResponsable = '';
+            $scope.ngTelefonoResponsable = '';
+        };
 
     });
 

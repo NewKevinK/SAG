@@ -44,7 +44,7 @@ namespace SAG.View.Pacientes
 
 
         [WebMethod]
-        public static string InsertarPaciente(string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, DateTime FechaNacimiento, string Sexo, 
+        public static dynamic InsertarPaciente(string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, DateTime FechaNacimiento, string Sexo, 
             string EntidadNacimiento, string Afiliacion, string NumeroAfiliacion,
             string Direccion, string NumeroExterior, string NumeroInterior, string Colonia, string CodigoPostal, string Municipio, string Estado, string Pais, 
             string TelefonoTrabajo, string TelefonoCasa, string TelefonoCelular, string CorreoElectronico, string Ocupacion,
@@ -94,10 +94,12 @@ namespace SAG.View.Pacientes
                 respuesta.Action = "Registrar Paciente";
                 respuesta.Result = "1";
                 respuesta.Message = "Paciente registrado correctamente";
-                respuesta.Data = controllerPaciente.InsertarPaciente(paciente, responsable);
+                //respuesta.Data = controllerPaciente.InsertarPaciente(paciente, responsable);
 
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                return js.Serialize(respuesta);
+                //return js.Serialize(respuesta);
+
+                return controllerPaciente.InsertarPaciente(paciente, responsable);
                 
             }
             catch (Exception ex)

@@ -13,7 +13,7 @@
 
    
          
-    <title>Login & Registration Form</title> 
+    <title>Login</title> 
 
     
 </head>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="input-field button">
                         <a href="../../Default.aspx"  ng-click="InicioSesion();" >
-                            <botton type="button" >Login</botton>
+                            <input type="button" value="Iniciar">Login</input>
 
                         </a>
                     </div>

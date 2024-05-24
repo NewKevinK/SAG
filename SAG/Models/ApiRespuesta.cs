@@ -9,7 +9,7 @@ namespace SAG.Models
     {
         //atributos: Action, Result, Message, Data
         public string Action { get; set; }
-        public string Result { get; set; }
+        public dynamic Result { get; set; }
         public string Message { get; set; }
         public object Data { get; set; }
 

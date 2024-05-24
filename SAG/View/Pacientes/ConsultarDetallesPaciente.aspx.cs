@@ -19,19 +19,96 @@ namespace SAG.View.Pacientes
         }
 
         [WebMethod]
-        public static string GetDetallesPaciente(string IdPaciente)
+        public static dynamic GetDetallesPaciente(int IdPaciente)
         {
-            ApiRespuesta respuesta = new ApiRespuesta();
+            
+            List<DetallesPaciente> lista = new List<DetallesPaciente>();
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
             try
             {
-                respuesta.Action = "GetDetallesPaciente";
-                respuesta.Result = "1";
-                respuesta.Message = "Consulta Correcta";
-                //respuesta.Data = controllerPaciente.RecuperarPacientes();
-                respuesta.DataList = null;
+                lista = controllerPaciente.ConsultarDetallesPaciente(IdPaciente);
 
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                return js.Serialize(respuesta);
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [WebMethod]
+        public static dynamic GetInformacionPaciente(int IdPaciente)
+        {
+            
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
+            List<DetallesPaciente> lista = new List<DetallesPaciente>();
+            try
+            {
+                lista = controllerPaciente.VerInformacionPaciente(IdPaciente);
+
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [WebMethod]
+        public static dynamic GetInformacionPacienteServicio(int IdPaciente)
+        {
+
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
+            List<DetallesPacienteServicio> lista = new List<DetallesPacienteServicio>();
+            try
+            {
+                lista = controllerPaciente.VerInformacionPacienteServicio(IdPaciente);
+
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [WebMethod]
+        public static dynamic GetDiagnosticosPaciente(int IdPaciente)
+        {
+
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
+            List<Diagnostico> lista = new List<Diagnostico>();
+            try
+            {
+                lista = controllerPaciente.VerDiagnosticosPaciente(IdPaciente);
+
+                return lista;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+        [WebMethod]
+        public static dynamic GetAlergiasPaciente(int IdPaciente)
+        {
+
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
+            List<Alergia> lista = new List<Alergia>();
+            try
+            {
+                lista = controllerPaciente.VerAlergiasPaciente(IdPaciente);
+
+                return lista;
+
             }
             catch (Exception ex)
             {

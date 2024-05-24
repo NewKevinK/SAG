@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ConsultarPacientes.aspx.cs" Inherits="SAG.View.Pacientes.ConsultarPacientes" %>
+﻿<%@ Page Title="Consultar Pacientes" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ConsultarPacientes.aspx.cs" Inherits="SAG.View.Pacientes.ConsultarPacientes" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -54,6 +54,7 @@
                             <td>{{x.Diagnostico}}</td>
                             <td>
                                 <button class="btn btn-sm btn-primary" ng-click="editarPaciente(x.IdPaciente)"  ><i class="fa-solid fa-pencil"></i></button>
+                                <button class="btn btn-sm btn-secondary" ng-click="verDetalles(x.IdPaciente)">Ver Detalles</button>
                             </td>
                         </tr>
                     </tbody>
@@ -86,109 +87,7 @@
     
     <script>
 
-        /*function dtUsers() {
-            var mydata = { "": "" };
-            var table = $("#datatable_users").DataTable({
-                destroy: true,
-                responsive: true,
-                ajax: {
-                    method: 'POST',
-                    url: 'https://localhost:44377/View/Pacientes/ConsultarPacientes.aspx/ConsultarPacientesSAG',
-                    data: mydata,
-                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-                    dataType: 'json'
-                },
-                columns: [
-                    { "data" : "IdPaciente" },
-                    { "data": "FechaRegistro" },
-                    { "data": "CURP" },
-                    { "data": "ApellidoPaterno" },
-                    { "data": "ApellidoMaterno" },
-                    { "data": "Nombres" },
-                    { "data": "Diagnostico" }
-                    
-                ]
-
-            });
-            
-        }*/
         
-        //alert("hola main");
-
-        function dtUsers2() {
-
-            var dataTable;
-            var dataTableIsInitialized = false;
-
-            var dataTableOptions = {
-                pageLength: 9,
-                destroy: true,
-                language: {
-                    lengthMenu: "Mostrar _MENU_ registros por página",
-                    zeroRecords: "Ningún Paciente encontrado",
-                    info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
-                    infoEmpty: "Ningún Paciente encontrado",
-                    infoFiltered: "(filtrados desde _MAX_ registros totales)",
-                    search: "Buscar:",
-                    loadingRecords: "Cargando...",
-                    paginate: {
-                        first: "Primero",
-                        last: "Último",
-                        next: "Siguiente",
-                        previous: "Anterior"
-                    }
-                }
-            };
-
-            var initDataTable = async () => {
-                if (dataTableIsInitialized) {
-                    dataTable.destroy();
-                }
-
-                await listUsers();
-
-                dataTable = $("#datatable_users").DataTable(dataTableOptions);
-
-                dataTableIsInitialized = true;
-            };
-            alert("detro de app");
-
-            var listUsers = async () => {
-                try {
-                    const response = await fetch("ConsultarPacientes.aspx/ConsultarPacientesSAG", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({})
-                    });
-                    const { d: users } = await response.json();
-
-                    let content = ``;
-                    users.forEach((user, index) => {
-                        content += `
-                        <tr>
-                            <td>${user.IdPaciente}</td>
-                            <td>${new Date(parseInt(user.FechaRegistro.substr(6)))}</td>
-                            <td>${user.CURP}</td>
-                            <td>${user.ApellidoPaterno}</td>
-                            <td>${user.ApellidoMaterno}</td>
-                            <td>${user.Nombres}</td>
-                            <td>${user.Diagnostico}</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary"><i class="fa-solid fa-pencil"></i></button>
-                                <button class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-                            </td>
-                        </tr>`;
-                    });
-                    alert("list users");
-                    $("#tableBody_users").html(content);
-                } catch (ex) {
-                    alert(ex);
-                }
-            }
-            alert(listUsers);
-        }
 
         var app = angular.module('appConsultar', []);
         
@@ -247,11 +146,15 @@
             
             
             $scope.editarPaciente = function (idPaciente) {
-                alert("entro al edit");
+                //alert("entro al edit");
                 // Construir la URL de redirección con el ID del paciente
                 var url = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/View/Pacientes/ModificarPaciente?id=' + idPaciente;
                 // Redirigir a la página de edición
                 $window.location.href = url;
+            };
+
+            $scope.verDetalles = function (idPaciente) {
+                $window.location.href = 'ConsultarDetallesPaciente.aspx?IdPaciente=' + idPaciente;
             };
 
             

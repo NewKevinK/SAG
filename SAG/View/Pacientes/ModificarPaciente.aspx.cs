@@ -21,7 +21,7 @@ namespace SAG.View.Pacientes
         [WebMethod]
         public static dynamic GetPaciente(int IdPaciente)
         {
-            PacienteModificar pacienteModificar = new PacienteModificar();
+            
             ApiRespuesta respuesta = new ApiRespuesta();
             List<PacienteModificar> lista = new List<PacienteModificar>();
             ControllerPaciente controllerPaciente = new ControllerPaciente();
@@ -42,7 +42,7 @@ namespace SAG.View.Pacientes
         }
 
         [WebMethod]
-        public static string UpdatePaciente(string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, DateTime FechaNacimiento, string Sexo,
+        public static dynamic UpdatePaciente(int IdPaciente, string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, DateTime FechaNacimiento, string Sexo,
             string EntidadNacimiento, string Afiliacion, string NumeroAfiliacion,
             string Direccion, string NumeroExterior, string NumeroInterior, string Colonia, string CodigoPostal, string Municipio, string Estado, string Pais,
             string TelefonoTrabajo, string TelefonoCasa, string TelefonoCelular, string CorreoElectronico, string Ocupacion,
@@ -55,6 +55,7 @@ namespace SAG.View.Pacientes
 
             try
             {
+                paciente.IdPaciente = IdPaciente;
                 paciente.Nombres = Nombres;
                 paciente.ApellidoPaterno = ApellidoPaterno;
                 paciente.ApellidoMaterno = ApellidoMaterno;
@@ -86,12 +87,11 @@ namespace SAG.View.Pacientes
                 responsable.Domicilio = DomicilioResponsable;
                 responsable.Telefono = TelefonoResponsable;
 
-                respuesta.Data = controllerPaciente.UpdatePaciente(paciente, responsable);
+                //respuesta.Data = controllerPaciente.UpdatePaciente(paciente, responsable);
                 
-                
+                return controllerPaciente.UpdatePaciente(paciente, responsable);
 
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                return js.Serialize(respuesta);
+
             }
             catch (Exception ex)
             {

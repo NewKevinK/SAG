@@ -7,9 +7,9 @@ namespace SAG.Models
 {
     public class Diagnostico
     {
-        //atributos: IdPaciente, FechaRegistro, NombreMedico, Diagnostico, TipoDiagnostico, Observacion.
-        public int IdPaciente { get; set; }
-        public DateTime FechaRegistro { get; set; }
+        //atributos: FechaRegistro, NombreMedico, Diagnostico, TipoDiagnostico, Observacion.
+        
+        public string FechaRegistro { get; set; }
         public string NombreMedico { get; set; }
         public string DiagnosticoNombre { get; set; }
         public string TipoDiagnostico { get; set; }

@@ -23,7 +23,7 @@ body {
     position: center;
     max-width: 1400px;
     width: 100%;
-    border-radius: 6px;
+    border-radius: 6px; 
     padding: 30px;
     margin: 0 15px;
     background-color: #fff;
@@ -53,7 +53,7 @@ body {
     .container form {
         position: relative;
         margin-top: 16px;
-        min-height: 490px;
+        min-height: 290px;
         background-color: #fff;
         overflow: hidden;
         max-width:1300px;
@@ -149,4 +149,30 @@ form button:hover {
 form .buttons {
     display: flex;
     align-items: center;
+}
+
+
+
+
+
+/* Estilos específicos para la tabla */
+.col-lg-4 {
+    /* Ajusta el ancho según sea necesario */
+    width: 30%;
+}
+
+/* Ajusta el espacio entre las columnas */
+.col-lg-8 {
+    /* Ajusta el ancho según sea necesario */
+    width: 70%;
+}
+
+/* Ajusta el espacio entre las filas */
+.row {
+    /* Ajusta el espacio vertical entre las filas */
+    margin-bottom: 20px;
+}
+
+.custom-input {
+    width: 100%;
 }

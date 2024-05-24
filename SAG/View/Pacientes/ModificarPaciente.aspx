@@ -1,23 +1,29 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ModificarPaciente.aspx.cs" Inherits="SAG.View.Pacientes.ModificarPaciente" %>
+﻿<%@ Page Title="Modificar Paciente"  Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ModificarPaciente.aspx.cs" Inherits="SAG.View.Pacientes.ModificarPaciente" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="../../css/stylePaciente.css" rel="stylesheet" />
+    
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 
-
+    <link href="../../css/stylePaciente.css" rel="stylesheet" />
     <title>Modificar Paciente</title>
 
 <body>
-    <div class="container">
+    <div class="container" ng-app="appFormulario">
         <header>Modificar Paciente</header>
 
         <form action="#">
-            <div class="form first" ng-app="appFormulario" ng-controller="ctrlFormulario" >
+            <div class="form first"  ng-controller="ctrlFormulario" >
                 <div class="details personal">
                     <span class="title">Informacion del Paciente</span>
 
@@ -28,7 +34,7 @@
                         </div>
                         <div class="input-field">
                             <label>Apellido Paterno</label>
-                            <input type="text" ng-model="Paciente.ApellidoPaterno" placeholder="Apellido Paterno" require>
+                            <input type="text" ng-model="Paciente.ApellidoPaterno" placeholder="Apellido Paterno" required>
                         </div>
                         <div class="input-field">
                             <label>Apellido Materno</label>
@@ -161,12 +167,32 @@
                             <input type="text" ng-model="Paciente.TelefonoResponsable" ng-pattern="/^[0-9]+$/" placeholder="Telefono del responsable" >
                         </div>
 
-                        <button class="nextBtn">
+                        <button class="nextBtn" ng-click="ModificarPaciente()" type="button">
                             <span class="btnText">Modificar</span>
                             <i class="uil uil-navigator"></i>
                         </button>
                         
 
+                    </div>
+                </div>
+
+                <!-- Modal para mostrar el resultado -->
+                <div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="resultadoModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="resultadoModalLabel">Resultado del Registro</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {{mensajeModal}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -185,8 +211,68 @@
         var urlParams = new URLSearchParams(window.location.search);
         var idPaciente = urlParams.get('id');
         var mydata = { IdPaciente : idPaciente };
-        alert(mydata.IdPaciente);
+        //alert(mydata.IdPaciente);
         $scope.Paciente = {};
+
+        $scope.ModificarPaciente = function () {
+            //alert("entro al mod");
+
+            var mydata = {
+                IdPaciente: idPaciente,
+                Nombres: $scope.Paciente.Nombres,
+                ApellidoPaterno: $scope.Paciente.ApellidoPaterno,
+                ApellidoMaterno: $scope.Paciente.ApellidoMaterno,
+                CURP: $scope.Paciente.CURP,
+                FechaNacimiento: $scope.ngFechaNacimiento,
+                Sexo: $scope.Paciente.Sexo,
+                EntidadNacimiento: $scope.Paciente.EntidadNacimiento,
+                Afiliacion: $scope.Paciente.Afiliacion,
+                NumeroAfiliacion: $scope.Paciente.NumeroAfiliacion,
+                Direccion: $scope.Paciente.Direccion || "",
+                NumeroExterior: $scope.Paciente.NumeroExterior || "",
+                NumeroInterior: $scope.Paciente.NumeroInterior || "",
+                Colonia: $scope.Paciente.Colonia || "",
+                CodigoPostal: $scope.Paciente.CodigoPostal || "",
+                Municipio: $scope.Paciente.Municipio || "",
+                Estado: $scope.Paciente.Estado || "",
+                Pais: $scope.Paciente.Pais || "",
+                TelefonoTrabajo: $scope.Paciente.TelefonoTrabajo || "",
+                TelefonoCasa: $scope.Paciente.TelefonoCasa || "",
+                TelefonoCelular: $scope.Paciente.TelefonoCelular || "",
+                CorreoElectronico: $scope.Paciente.CorreoElectronico || "",
+                Ocupacion: $scope.Paciente.Ocupacion || "",
+                NombresResponsable: $scope.Paciente.NombresResponsable || "",
+                ApellidoPaternoResponsable: $scope.Paciente.ApellidoPaternoResponsable || "",
+                ApellidoMaternoResponsable: $scope.Paciente.ApellidoMaternoResponsable || "",
+                ParentescoResponsable: $scope.Paciente.ParentescoResponsable,
+                DomicilioResponsable: $scope.Paciente.DomicilioResponsable || "",
+                TelefonoResponsable: $scope.Paciente.TelefonoResponsable || ""
+            };
+
+            try {
+                $http({
+                    method: 'POST',
+                    url: 'https://localhost:44377/View/Pacientes/ModificarPaciente.aspx/UpdatePaciente',
+                    data: mydata,
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    dataType: 'json'
+                }).then(function (response) {
+                    var resultado = response.data.d;
+
+                    if (resultado.Result == 1) {
+                        $scope.mensajeModal = resultado.Message;
+                        
+                    } else {
+                        alert("entro al 0");
+                        $scope.mensajeModal = "Error: " + resultado.Message;
+                    }
+                    $('#resultadoModal').modal('show');
+
+                });
+            } catch (ex) {
+                alert(ex);
+            }
+        }
 
         try {
             $http({
@@ -198,8 +284,8 @@
             }).then(function (response) {
                 var paciente = response.data.d[0];
 
-                alert(paciente.Nombres);
-                alert(paciente.FechaNacimiento);
+                //alert(paciente.Nombres);
+                //alert(paciente.FechaNacimiento);
                 $scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
                 
                 $scope.Paciente = paciente;
