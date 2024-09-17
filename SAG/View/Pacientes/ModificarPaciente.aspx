@@ -221,13 +221,13 @@
                 IdPaciente: idPaciente,
                 Nombres: $scope.Paciente.Nombres,
                 ApellidoPaterno: $scope.Paciente.ApellidoPaterno,
-                ApellidoMaterno: $scope.Paciente.ApellidoMaterno,
+                ApellidoMaterno: $scope.Paciente.ApellidoMaterno || "",
                 CURP: $scope.Paciente.CURP,
                 FechaNacimiento: $scope.ngFechaNacimiento,
-                Sexo: $scope.Paciente.Sexo,
-                EntidadNacimiento: $scope.Paciente.EntidadNacimiento,
-                Afiliacion: $scope.Paciente.Afiliacion,
-                NumeroAfiliacion: $scope.Paciente.NumeroAfiliacion,
+                Sexo: $scope.Paciente.Sexo || "",
+                EntidadNacimiento: $scope.Paciente.EntidadNacimiento || "",
+                Afiliacion: $scope.Paciente.Afiliacion || "",
+                NumeroAfiliacion: $scope.Paciente.NumeroAfiliacion || "",
                 Direccion: $scope.Paciente.Direccion || "",
                 NumeroExterior: $scope.Paciente.NumeroExterior || "",
                 NumeroInterior: $scope.Paciente.NumeroInterior || "",
@@ -244,7 +244,7 @@
                 NombresResponsable: $scope.Paciente.NombresResponsable || "",
                 ApellidoPaternoResponsable: $scope.Paciente.ApellidoPaternoResponsable || "",
                 ApellidoMaternoResponsable: $scope.Paciente.ApellidoMaternoResponsable || "",
-                ParentescoResponsable: $scope.Paciente.ParentescoResponsable,
+                ParentescoResponsable: $scope.Paciente.ParentescoResponsable || "",
                 DomicilioResponsable: $scope.Paciente.DomicilioResponsable || "",
                 TelefonoResponsable: $scope.Paciente.TelefonoResponsable || ""
             };
@@ -261,6 +261,9 @@
 
                     if (resultado.Result == 1) {
                         $scope.mensajeModal = resultado.Message;
+                        setTimeout(function () {
+                            window.location.href = '/Default.aspx';
+                        }, 2000);
                         
                     } else {
                         alert("entro al 0");

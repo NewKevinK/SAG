@@ -11,7 +11,7 @@ namespace SAG.View.Inicio
 {
 
 
-    public partial class Soporte
+    public partial class RegistrarUsuario
     {
     }
 }

@@ -6,6 +6,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using System.Web.Services.Description;
+using Microsoft.Ajax.Utilities;
 using SAG.Models;
 using SAG.View.Pacientes;
 
@@ -67,25 +69,46 @@ namespace SAG.Controller
                     cmd.ExecuteNonQuery();
 
                     // Leer los valores de salida
-                    string message = (string)messageParam.Value;
-                    int result = (int)resultParam.Value;
                     apiRespuesta.Message = (string)messageParam.Value; 
                     apiRespuesta.Result = (int)resultParam.Value;
+
 
                     con.Close();
                     return apiRespuesta;
 
-                    /*SqlDataReader dr = cmd.ExecuteReader();
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
 
-                    string data = "";
-                    while (dr.Read())
-                    {
-                        data = dr[0].ToString();
-                    }
+        public dynamic InsertarPacienteDetalleInterno()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[RegistrarPacienteDetalleInterno]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    ApiRespuesta apiRespuesta = new ApiRespuesta();
+
+                    
+                    var messageParam = cmd.Parameters.Add("@Message", SqlDbType.NVarChar, 100);
+                    messageParam.Direction = ParameterDirection.Output;
+                    var resultParam = cmd.Parameters.Add("@Result", SqlDbType.Int);
+                    resultParam.Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    apiRespuesta.Message = (string)messageParam.Value;
+                    apiRespuesta.Result = (int)resultParam.Value;
+
                     con.Close();
 
-                    return data; */
-
+                    return apiRespuesta;
                 }
             }
             catch (Exception ex)
@@ -292,13 +315,14 @@ namespace SAG.Controller
                         DP.Nombres = dr["Nombres"].ToString();
                         DP.Nacionalidad = dr["Nacionalidad"].ToString();
                         DP.CURP = dr["CURP"].ToString();
-                        DP.NumeroExpediente = dr["NumeroExpediente"].ToString();
+                        //DP.NumeroExpediente = dr["NumeroExpediente"].ToString();
                         DP.FechaNacimiento = dr["FechaNacimiento"].ToString();
                         DP.Edad = dr["Edad"].ToString();
                         DP.Sexo = dr["Sexo"].ToString();
+                        
                         DP.FechaAdmision = dr["FechaAdmision"].ToString();
                         DP.FechaModificacion = dr["FechaModificacion"].ToString();
-                        DP.Ambulancia = dr["Ambulancia"].ToString();
+                        //DP.Ambulancia = dr["Ambulancia"].ToString();
 
                         lista.Add(DP);
                     }
@@ -331,19 +355,29 @@ namespace SAG.Controller
                     {
                         DetallesPaciente DP = new DetallesPaciente();
                         DP.EstadoSalud = dr["EstadoSalud"].ToString();
-                        DP.FechaIngreso = dr["FechaIngreso"].ToString();
+                        //DP.FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"]).ToString("yyyy-MM-dd");
+                        DP.FechaIngreso = dr["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(dr["FechaIngreso"]).ToString("yyyy-MM-dd") : null;
                         DP.Cama = dr["Cama"].ToString();
                         DP.Area = dr["Area"].ToString();
                         DP.Diagnostico = dr["Diagnostico"].ToString();
                         DP.TipoSeguro = dr["TipoSeguro"].ToString();
                         DP.Folio = dr["Folio"].ToString();
                         DP.EstadoPaciente = dr["EstadoPaciente"].ToString();
-                        DP.FechaAlta = dr["FechaAlta"].ToString();
-                        DP.FechaEgreso = dr["FechaEgreso"].ToString();
+                        //DP.FechaAlta = dr["FechaAlta"].ToString();
+                        //DP.FechaAlta = Convert.ToDateTime(dr["FechaAlta"]).ToString("yyyy-MM-dd"); 
+                        DP.FechaAlta = dr["FechaAlta"] != DBNull.Value ? Convert.ToDateTime(dr["FechaAlta"]).ToString("yyyy-MM-dd") : null;
+
+                        //DP.FechaEgreso = dr["FechaEgreso"].ToString();
+                        //DP.FechaEgreso = Convert.ToDateTime(dr["FechaEgreso"]).ToString("yyyy-MM-dd");
+                        DP.FechaEgreso = dr["FechaEgreso"] != DBNull.Value ? Convert.ToDateTime(dr["FechaEgreso"]).ToString("yyyy-MM-dd") : null;
+
                         DP.MotivoEgreso = dr["MotivoEgreso"].ToString();
                         DP.SondaInstalada = dr["SondaInstalada"].ToString();
-                        DP.FechaSondaInstalacion = dr["FechaSondaInstalacion"].ToString();
-                        DP.FechaCirugia = dr["FechaCirugia"].ToString();
+                        //DP.FechaSondaInstalacion = dr["FechaSondaInstalacion"].ToString();
+                        //DP.FechaSondaInstalacion = Convert.ToDateTime(dr["FechaSondaInstalacion"]).ToString("yyyy-MM-dd");
+                        DP.FechaSondaInstalacion = dr["FechaSondaInstalacion"] != DBNull.Value ? Convert.ToDateTime(dr["FechaSondaInstalacion"]).ToString("yyyy-MM-dd") : null;
+                        //DP.FechaCirugia = Convert.ToDateTime(dr["FechaCirugia"]).ToString("yyyy-MM-dd");
+                        DP.FechaCirugia = dr["FechaCirugia"] != DBNull.Value ? Convert.ToDateTime(dr["FechaCirugia"]).ToString("yyyy-MM-dd") : null;
                         DP.CirugiaProgramada = dr["CirugiaProgramada"].ToString();
                         DP.Procedimiento = dr["Procedimiento"].ToString();
                         DP.ObservacionCirugia = dr["ObservacionCirugia"].ToString();
@@ -452,7 +486,7 @@ namespace SAG.Controller
                     while (dr.Read())
                     {
                         Alergia A = new Alergia();
-                        A.FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]).ToString("yyyy-MM-dd");
+                        A.FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]).ToString("yyyy-MM-dd HH:mm:ss");
                         A.TipoAlergia = dr["TipoAlergia"].ToString();
                         A.Causante = dr["Causante"].ToString();
                         A.Detalles = dr["Detalles"].ToString();
@@ -471,13 +505,79 @@ namespace SAG.Controller
             }
         }
 
+        public dynamic BuscarPacientesFiltro(string EstadoPaciente, string Año)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[BuscarPacientesFiltro]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    
+                    if (Año != "")
+                    {
+                        cmd.Parameters.Add("@EstadoPaciente", System.Data.SqlDbType.NVarChar).Value = EstadoPaciente;
+                        cmd.Parameters.Add("@Año", System.Data.SqlDbType.Int).Value = Año;
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@EstadoPaciente", System.Data.SqlDbType.NVarChar).Value = EstadoPaciente;
+                    }
+                    
+
+
+                    List<PacienteFiltro> lista = new List<PacienteFiltro>();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        PacienteFiltro PF = new PacienteFiltro();
+                        PF.IdPaciente = Convert.ToInt32(dr["IdPaciente"]);
+                        PF.NumeroExpediente = dr["NumeroExpediente"].ToString();
+                        //PF.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]);
+                        PF.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]).ToString("yyyy-MM-dd");
+                        //PF.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]).ToString("yyyy-MM-dd HH:mm:ss"); 
+
+                        //PF.FechaNacimiento = dr["FechaNacimiento"].ToString();
+                        PF.CURP = dr["CURP"].ToString();
+                        PF.ApellidoPaterno = dr["ApellidoPaterno"].ToString();
+                        PF.ApellidoMaterno = dr["ApellidoMaterno"].ToString();
+                        PF.Nombres = dr["Nombres"].ToString();
+                        PF.Edad = Convert.ToInt32(dr["Edad"]);
+                        PF.Cama = dr["Cama"].ToString();
+                        PF.Area = dr["Area"].ToString();
+                        PF.S1 = dr["S1"].ToString();
+                        PF.EstadoSalud = dr["EstadoSalud"].ToString();
+                        PF.Diagnostico = dr["Diagnostico"].ToString();
+                        PF.FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"]).ToString("yyyy-MM-dd");
+                        PF.Dias = Convert.ToInt32(dr["Dias"]);
+
+
+                        lista.Add(PF);
+
+                    }
+                    return lista;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+
+
+            
+        }
+
 
 
         public dynamic PdfListaPacientesHopitalizados()
         {
             try
             {
-                using (SqlCommand cmd = new SqlCommand("", con))
+                using (SqlCommand cmd = new SqlCommand("[dbo].[GenerarListaPacientesHospitalizados]", con))
                 {
                     con.Open();
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -490,8 +590,8 @@ namespace SAG.Controller
                     {
                         PacienteOficio PO = new PacienteOficio();
                         PO.ID = Convert.ToInt32(dr["ID"]);
-                        PO.NoExp = dr["NoExp"].ToString();
-                        PO.FDN = Convert.ToDateTime(dr["FDN"]).ToString("yyyy-MM-dd HH:mm:ss");
+                        PO.NoExp = dr["NumExp"].ToString();
+                        PO.FDN = Convert.ToDateTime(dr["FDN"]);
                         PO.CURP = dr["CURP"].ToString();
                         PO.ApellidoP = dr["ApellidoP"].ToString();
                         PO.ApellidoM = dr["ApellidoM"].ToString();
@@ -499,17 +599,342 @@ namespace SAG.Controller
                         PO.Edad = Convert.ToInt32(dr["Edad"]);
                         PO.Cama = dr["Cama"].ToString();
                         PO.Area = dr["Area"].ToString();
-                        PO.Servicio1 = dr["Servicio1"].ToString();
-                        PO.Servicio2 = dr["Servicio2"].ToString();
+                        PO.S1 = dr["S1"].ToString();
                         PO.EdoSalud = dr["EdoSalud"].ToString();
                         PO.Diagnostico = dr["Diagnostico"].ToString() ;
-                        PO.FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"]).ToString("yyyy-MM-dd HH:mm:ss");
+                        PO.FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"]);
                         PO.DiasInternado = Convert.ToInt32(dr["DiasInternado"]);
 
                         lista.Add(PO);
                     }
                     con.Close();
                     return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+        public dynamic PdfListaPacientesInternados()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[GenerarListaPacientesInternados]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                    List<PacienteOficio> lista = new List<PacienteOficio>();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        PacienteOficio PO = new PacienteOficio();
+                        PO.Cama = dr["Cama"].ToString();
+                        PO.Area = dr["Area"].ToString();
+                        PO.S1 = dr["S1"].ToString();
+                        PO.ApellidoP = dr["ApellidoPaterno"].ToString();
+                        PO.ApellidoM = dr["ApellidoMaterno"].ToString();
+                        PO.Nombres = dr["Nombres"].ToString();
+                        PO.Edad = Convert.ToInt32(dr["Edad"]);
+                        PO.ID = Convert.ToInt32(dr["ID"]);
+                        PO.Diagnostico = dr["Diagnostico"].ToString();
+                        PO.DiasInternado = Convert.ToInt32(dr["DiasInternado"]);
+
+                        lista.Add(PO);
+                    }
+                    con.Close();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+
+
+        public dynamic PdfListaIngresosAyer()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[GenerarListaIngresosAyer]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                    List<PacienteOficio> lista = new List<PacienteOficio>();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        PacienteOficio PO = new PacienteOficio();
+                        PO.ID = Convert.ToInt32(dr["IdPaciente"]);
+                        PO.ApellidoP = dr["ApellidoPaterno"].ToString();
+                        PO.ApellidoM = dr["ApellidoMaterno"].ToString();
+                        PO.Nombres = dr["Nombres"].ToString();
+                        
+                        PO.FDN = Convert.ToDateTime(dr["FechaNacimiento"]);
+                        PO.CURP = dr["CURP"].ToString();
+                        PO.S1 = dr["S1"].ToString();
+                        PO.Cama = dr["Cama"].ToString();
+                        PO.Area = dr["Area"].ToString();
+                        PO.FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"]);
+                        PO.EdoSalud = dr["EstadoSalud"].ToString();
+                        PO.Diagnostico = dr["Diagnostico"].ToString();
+
+                        lista.Add(PO);
+                    }
+                    con.Close();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+        public dynamic PdfListaAreas()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[GenerarListaAreas]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+                    List<PacienteOficio> lista = new List<PacienteOficio>();
+
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        PacienteOficio PO = new PacienteOficio();
+                        PO.Area = dr["Area"].ToString();
+                        PO.Cama = dr["Cama"].ToString();
+                        PO.S1 = dr["S1"].ToString();
+                        PO.ApellidoP = dr["ApellidoPaterno"].ToString();
+                        PO.ApellidoM = dr["ApellidoMaterno"].ToString();
+                        PO.Nombres = dr["Nombres"].ToString();
+                        PO.Edad = Convert.ToInt32(dr["Edad"]);
+                        PO.FDN = Convert.ToDateTime(dr["FechaNacimiento"]);
+                        PO.ID = Convert.ToInt32(dr["ID"]);
+                        PO.Diagnostico = dr["Diagnostico"].ToString();
+                        PO.DiasInternado = Convert.ToInt32(dr["DiasInternado"]);
+
+                        lista.Add(PO);
+                    }
+                    con.Close();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+
+        public dynamic CambiarEstadoPaciente(int IdPaciente)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[CambioEstadoPaciente]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    ApiRespuesta apiRespuesta = new ApiRespuesta();
+
+                    cmd.Parameters.Add("@IdPaciente", System.Data.SqlDbType.Int).Value = IdPaciente;
+
+
+                    var messageParam = cmd.Parameters.Add("@Message", SqlDbType.NVarChar, 100);
+                    messageParam.Direction = ParameterDirection.Output;
+                    var resultParam = cmd.Parameters.Add("@Result", SqlDbType.Int);
+                    resultParam.Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    apiRespuesta.Message = (string)messageParam.Value;
+                    apiRespuesta.Result = (int)resultParam.Value;
+
+                    con.Close();
+
+                    return apiRespuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+        public dynamic RegistrarDiagnostico(int IdPaciente ,string MedicoEncargado, string Diagnostico, string TipoDiagnostico, string Observaciones)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[RegistrarDiagnostico]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    ApiRespuesta apiRespuesta = new ApiRespuesta();
+
+                    cmd.Parameters.Add("@IdPaciente", System.Data.SqlDbType.Int).Value = IdPaciente;
+                    cmd.Parameters.Add("@NombreMedico", System.Data.SqlDbType.NVarChar).Value = MedicoEncargado;
+                    cmd.Parameters.Add("@Diagnostico", System.Data.SqlDbType.NVarChar).Value = Diagnostico;
+                    cmd.Parameters.Add("@TipoDiagnostico", System.Data.SqlDbType.NVarChar).Value = TipoDiagnostico;
+                    cmd.Parameters.Add("@Observacion", System.Data.SqlDbType.NVarChar).Value = Observaciones;
+
+
+
+                    var messageParam = cmd.Parameters.Add("@Message", SqlDbType.NVarChar, 100);
+                    messageParam.Direction = ParameterDirection.Output;
+                    var resultParam = cmd.Parameters.Add("@Result", SqlDbType.Int);
+                    resultParam.Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    apiRespuesta.Message = (string)messageParam.Value;
+                    apiRespuesta.Result = (int)resultParam.Value;
+
+                    con.Close();
+
+                    return apiRespuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close(); 
+                throw ex;
+            }
+        }
+
+        public dynamic RegistrarAlergia(int IdPaciente, string TipoAlergia, string Causante, string Detalles)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[RegistrarAlergia]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    ApiRespuesta apiRespuesta = new ApiRespuesta();
+
+                    cmd.Parameters.Add("@IdPaciente", System.Data.SqlDbType.Int).Value = IdPaciente;
+                    cmd.Parameters.Add("@TipoAlergia", System.Data.SqlDbType.NVarChar).Value = TipoAlergia;
+                    cmd.Parameters.Add("@Causante", System.Data.SqlDbType.NVarChar).Value = Causante;
+                    cmd.Parameters.Add("@Detalles", System.Data.SqlDbType.NVarChar).Value = Detalles;
+
+                    var messageParam = cmd.Parameters.Add("@Message", SqlDbType.NVarChar, 100);
+                    messageParam.Direction = ParameterDirection.Output;
+                    var resultParam = cmd.Parameters.Add("@Result", SqlDbType.Int);
+                    resultParam.Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    apiRespuesta.Message = (string)messageParam.Value;
+                    apiRespuesta.Result = (int)resultParam.Value;
+
+                    con.Close();
+
+                    return apiRespuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+        public dynamic RegistrarServicio(int IdPaciente, string Servicio)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[RegistrarServicio]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    ApiRespuesta apiRespuesta = new ApiRespuesta();
+
+                    cmd.Parameters.Add("@IdPaciente", System.Data.SqlDbType.Int).Value = IdPaciente;
+                    cmd.Parameters.Add("@Servicio", System.Data.SqlDbType.NVarChar).Value = Servicio;
+
+                    var messageParam = cmd.Parameters.Add("@Message", SqlDbType.NVarChar, 100);
+                    messageParam.Direction = ParameterDirection.Output;
+                    var resultParam = cmd.Parameters.Add("@Result", SqlDbType.Int);
+                    resultParam.Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    apiRespuesta.Message = (string)messageParam.Value;
+                    apiRespuesta.Result = (int)resultParam.Value;
+
+                    con.Close();
+
+                    return apiRespuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+
+        public dynamic ModificarDetallesInformacionPaciente(int IdPaciente, DetallesPaciente d)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[ModificarDetallesInformacionPaciente]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    ApiRespuesta apiRespuesta = new ApiRespuesta();
+
+                    cmd.Parameters.AddWithValue("@IdPaciente", IdPaciente);
+                    cmd.Parameters.AddWithValue("@TipoAtencion", (object)d.TipoAtencion ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@EstadoSalud", (object)d.EstadoSalud ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FechaIngreso", string.IsNullOrEmpty(d.FechaIngreso) ? (object)DBNull.Value : DateTime.Parse(d.FechaIngreso));
+                    cmd.Parameters.AddWithValue("@Cama", (object)d.Cama ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Area", (object)d.Area ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@TipoSeguro", (object)d.TipoSeguro ?? DBNull.Value);  // Afiliacion
+                    cmd.Parameters.AddWithValue("@Folio", (object)d.Folio ?? DBNull.Value);            // NumeroAfiliacion
+                    cmd.Parameters.AddWithValue("@EstadoPaciente", (object)d.EstadoPaciente ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FechaAlta", string.IsNullOrEmpty(d.FechaAlta) ? (object)DBNull.Value : DateTime.Parse(d.FechaAlta));
+                    cmd.Parameters.AddWithValue("@FechaEgreso", string.IsNullOrEmpty(d.FechaEgreso) ? (object)DBNull.Value : DateTime.Parse(d.FechaEgreso));
+                    cmd.Parameters.AddWithValue("@MotivoEgreso", (object)d.MotivoEgreso ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@SondaInstalada", (object)d.SondaInstalada ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FechaSondaInstalacion", string.IsNullOrEmpty(d.FechaSondaInstalacion) ? (object)DBNull.Value : DateTime.Parse(d.FechaSondaInstalacion));
+                    cmd.Parameters.AddWithValue("@CirugiaProgramada", (object)d.CirugiaProgramada ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@Procedimiento", (object)d.Procedimiento ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@FechaCirugia", string.IsNullOrEmpty(d.FechaCirugia) ? (object)DBNull.Value : DateTime.Parse(d.FechaCirugia));
+                    cmd.Parameters.AddWithValue("@Observaciones", (object)d.ObservacionCirugia ?? DBNull.Value);
+
+                    var messageParam = cmd.Parameters.Add("@Message", SqlDbType.NVarChar, 100);
+                    messageParam.Direction = ParameterDirection.Output;
+                    var resultParam = cmd.Parameters.Add("@Result", SqlDbType.Int);
+                    resultParam.Direction = ParameterDirection.Output;
+
+                    cmd.ExecuteNonQuery();
+
+                    apiRespuesta.Message = (string)messageParam.Value;
+                    apiRespuesta.Result = (int)resultParam.Value;
+
+                    con.Close();
+
+                    return apiRespuesta;
                 }
             }
             catch (Exception ex)

@@ -18,7 +18,7 @@
         <div class="container" ng-app="appDashboard" ng-controller="DashboardController">
 
             <header>Inicio</header>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-4">
                     <div class="card text-white bg-primary mb-3">
                         <div class="card-body">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
     </body>
 

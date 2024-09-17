@@ -21,32 +21,42 @@ namespace SAG.View.Inicio
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            //al dar clic en el boton de login se redirecciona a la pagina de inicio
-            //Response.Redirect("~/View/RegistrarPaciente.aspx");
-
+            
         }
 
         [WebMethod]
-        public static string LoginSAG(string Usuario, string Password)
+        public static dynamic LoginSAG(string Usuario, string Password)
         {
-            ApiRespuesta respuesta = new ApiRespuesta();
+            
             ControllerLogin controllerLogin = new ControllerLogin();
-            
-            
+            ApiRespuesta apiRespuesta = new ApiRespuesta();
+            Console.WriteLine(Usuario);
+            apiRespuesta = controllerLogin.IniciarSesion(Usuario, Password);
             try
             {
-                
-                respuesta.Action = "Inicio de Sesion";
-                respuesta.Result = "1";
-                respuesta.Message = "Inicio Correcto";
-                respuesta.Data = controllerLogin.IniciarSesion(Usuario, Password);
-                respuesta.DataList = null;
+                if (apiRespuesta.Result == 1)
+                {
+                    JWT jwt = new JWT();
+                    string token = jwt.GenerateJwtToken(Usuario);
 
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                return js.Serialize(respuesta);
+                    HttpCookie jwtCookie = new HttpCookie("JWTToken", token)
+                    {
+                        HttpOnly = true,
+                        Secure = true, 
+                        Expires = DateTime.Now.AddHours(4)
+                    };
 
+                    HttpContext.Current.Response.Cookies.Add(jwtCookie);
+                    return apiRespuesta;
+                }
+                else
+                {
+                    return "Usuario o contraseña incorrectos";
+                }
+
+
+                //return controllerLogin.IniciarSesion(Usuario, Password);
                
-
             }
             catch(Exception ex)
             {

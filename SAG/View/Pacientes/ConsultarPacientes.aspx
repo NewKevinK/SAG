@@ -55,6 +55,7 @@
                             <td>
                                 <button class="btn btn-sm btn-primary" ng-click="editarPaciente(x.IdPaciente)"  ><i class="fa-solid fa-pencil"></i></button>
                                 <button class="btn btn-sm btn-secondary" ng-click="verDetalles(x.IdPaciente)">Ver Detalles</button>
+                                
                             </td>
                         </tr>
                     </tbody>
@@ -156,6 +157,8 @@
             $scope.verDetalles = function (idPaciente) {
                 $window.location.href = 'ConsultarDetallesPaciente.aspx?IdPaciente=' + idPaciente;
             };
+
+            
 
             
 

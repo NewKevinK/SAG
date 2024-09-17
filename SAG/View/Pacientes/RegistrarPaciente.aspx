@@ -44,7 +44,7 @@
                         </div>
                         <div class="input-field">
                             <label>Apellido Materno</label>
-                            <input type="text" id="txtApellidoMaterno" ng-model="ngApellidoMaterno" placeholder="Apellido Materno" required>
+                            <input type="text" id="txtApellidoMaterno" ng-model="ngApellidoMaterno" placeholder="Apellido Materno">
                         </div>
                         <div class="input-field">
                             <label>CURP</label>
@@ -52,23 +52,23 @@
                         </div>
                         <div class="input-field">
                             <label>Fecha de Nacimiento</label>
-                            <input type="date" id="txtFechaNacimiento" ng-model="ngFechaNacimiento" placeholder="Fecha de Nacimiento" required>
+                            <input type="date" id="txtFechaNacimiento" ng-model="ngFechaNacimiento" placeholder="Fecha de Nacimiento" >
                         </div>
                         <div class="input-field">
                             <label>Sexo</label>
-                            <input type="text" id="txtSexo" ng-model="ngSexo" placeholder="Sexo de nacimiento" required>
+                            <input type="text" id="txtSexo" ng-model="ngSexo" placeholder="Sexo de nacimiento" >
                         </div>
                         <div class="input-field">
                             <label>Entidad de Nacimiento</label>
-                            <input type="text" ng-model="ngEntidadNacimiento" placeholder="Ciudad donde nacio" required>
+                            <input type="text" ng-model="ngEntidadNacimiento" placeholder="Ciudad donde nacio" >
                         </div>
                         <div class="input-field">
                             <label>Afiliacion</label>
-                            <input type="text" ng-model="ngAfiliacion" placeholder="Afiliacion" required>
+                            <input type="text" ng-model="ngAfiliacion" placeholder="Afiliacion" >
                         </div>
                         <div class="input-field">
                             <label>Numero de afiliacion</label>
-                            <input type="text" ng-model="ngNumeroAfiliacion" placeholder="Num Afiliacion" required>
+                            <input type="text" ng-model="ngNumeroAfiliacion" placeholder="Num Afiliacion">
                         </div>
 
                     </div>
@@ -219,48 +219,47 @@
 
 
         $scope.RegistrarPaciente = function () {
-            alert("Registrar Paciente");
-            
-            var mydata = {
-                Nombres: $scope.ngNombres,
-                ApellidoPaterno: $scope.ngApellidoPaterno,
-                ApellidoMaterno: $scope.ngApellidoMaterno,
-                CURP: $scope.ngCURP,
-                //FechaNacimiento: $scope.ngFechaNacimiento,
-                //FechaNacimiento: new Date($scope.ngFechaNacimiento),
-                FechaNacimiento: new Date($scope.ngFechaNacimiento).toISOString(),
-                Sexo: $scope.ngSexo,
-                EntidadNacimiento: $scope.ngEntidadNacimiento,
-                Afiliacion: $scope.ngAfiliacion,
-                NumeroAfiliacion: $scope.ngNumeroAfiliacion,
-                Direccion: "", Direccion: $scope.ngDireccion,
-                NumeroExterior: "", NumeroExterior: $scope.ngNumeroExterior,
-                NumeroInterior: "", NumeroInterior: $scope.ngNumeroInterior,
-                Colonia:"", Colonia: $scope.ngColonia,
-                CodigoPostal:"",CodigoPostal: $scope.ngCodigoPostal,
-                Municipio:"",Municipio: $scope.ngMunicipio,
-                Estado:"",Estado: $scope.ngEstado,
-                Pais:"",Pais: $scope.ngPais,
-                TelefonoTrabajo: $scope.ngTelefonoTrabajo,
-                 TelefonoCasa: $scope.ngTelefonoCasa,
-                 TelefonoCelular: $scope.ngTelefonoCelular,
-                CorreoElectronico:"",CorreoElectronico: $scope.ngCorreoElectronico,
-                Ocupacion:"",Ocupacion: $scope.ngOcupacion,
-                NombresResponsable:"", NombresResponsable: $scope.ngNombresResponsable,
-                ApellidoPaternoResponsable: "", ApellidoPaternoResponsable: $scope.ngApellidoPaternoResponsable,
-                ApellidoMaternoResponsable: "", ApellidoMaternoResponsable: $scope.ngApellidoMaternoResponsable,
-                ParentescoResponsable: "", ParentescoResponsable: $scope.ngParentescoResponsable,
-                DomicilioResponsable:"", DomicilioResponsable: $scope.ngDomicilioResponsable,
-                TelefonoResponsable:"", TelefonoResponsable: $scope.ngTelefonoResponsable
-            };
-            //alert("va aentrar ");
-            //if (!$scope.ngNumeroInterior) mydata.NumeroInterior: "test";
-            //alert(mydata.FechaNacimiento);
-            //alert(mydata.NumeroInterior);
-            //Wed May 15 2024 00:00:00 GMT-0600 (hora estándar central)
-            //Falta la validacion solamente
             try {
-                alert("entro al post");
+                var mydata = {
+                    Nombres: $scope.ngNombres,
+                    ApellidoPaterno: $scope.ngApellidoPaterno,
+                    ApellidoMaterno: $scope.ngApellidoMaterno || "",
+                    CURP: $scope.ngCURP || "",
+                    //FechaNacimiento: $scope.ngFechaNacimiento,
+                    //FechaNacimiento: new Date($scope.ngFechaNacimiento),
+                    FechaNacimiento: new Date($scope.ngFechaNacimiento).toISOString() || "",
+                    Sexo: $scope.ngSexo || "",
+                    EntidadNacimiento: $scope.ngEntidadNacimiento || "",
+                    Afiliacion: $scope.ngAfiliacion || "",
+                    NumeroAfiliacion: $scope.ngNumeroAfiliacion || "",
+                    Direccion: $scope.ngDireccion || "",
+                    NumeroExterior: $scope.ngNumeroExterior || "",
+                    NumeroInterior: $scope.ngNumeroInterior || "",
+                    Colonia: $scope.ngColonia || "",
+                    CodigoPostal: $scope.ngCodigoPostal || "",
+                    Municipio: $scope.ngMunicipio || "",
+                    Estado: $scope.ngEstado || "",
+                    Pais: $scope.ngPais || "",
+                    TelefonoTrabajo: $scope.ngTelefonoTrabajo || "",
+                    TelefonoCasa: $scope.ngTelefonoCasa || "",
+                    TelefonoCelular: $scope.ngTelefonoCelular || "",
+                    CorreoElectronico: $scope.ngCorreoElectronico || "",
+                    Ocupacion: $scope.ngOcupacion || "",
+                    NombresResponsable: $scope.ngNombresResponsable || "",
+                    ApellidoPaternoResponsable: $scope.ngApellidoPaternoResponsable || "",
+                    ApellidoMaternoResponsable: $scope.ngApellidoMaternoResponsable || "",
+                    ParentescoResponsable: $scope.ngParentescoResponsable || "",
+                    DomicilioResponsable: $scope.ngDomicilioResponsable || "",
+                    TelefonoResponsable: $scope.ngTelefonoResponsable || ""
+                };
+            } catch (ex) {
+                alert(ex);
+            }
+
+            //InsertarPaciente
+            try {
+                
+                //alert("entro al post");
                 $http({
                     method: 'POST',
                     url: 'https://localhost:44377/View/Pacientes/RegistrarPaciente.aspx/InsertarPaciente',
@@ -268,22 +267,19 @@
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
                     dataType: 'json'
                 }).then(function (response) {
-                    alert("entro al then");
-                    
                     var resultado = response.data.d;
-                    //alert(resultado);
-                    //alert(resultado.Message);
-                    alert(resultado.Result);
-
                     
                     if (resultado.Result == 1) {
                         $scope.mensajeModal = "Paciente registrado exitosamente.";
                         $scope.resetForm(); 
                     } else {
-                        alert("entro al 0");
+                        //alert("entro al 0");
                         $scope.mensajeModal = "Error: " + resultado.Message;
                     }
                     $('#resultadoModal').modal('show');
+                    setTimeout(function () {
+                        window.location.href = '/Default.aspx';
+                    }, 2000);
 
                 });
             } catch (ex) {

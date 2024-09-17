@@ -48,46 +48,32 @@
                         </a>
                     </li>
                     <li class="list">
+                        <a href="/View/Pacientes/BuscarPaciente.aspx" class="nav-link">
+                            <i class="bx bx-bar-chart-alt-2 icon"></i>
+                            <span class="link">Buscar Paciente</span>
+                        </a>
+                    </li>
+                    <li class="list">
                         <a href="/View/Pacientes/OficiosPdf.aspx" class="nav-link">
                             <i class="bx bx-bell icon"></i>
                             <span class="link">Oficios</span>
                         </a>
                     </li>
-                    <li class="item">
-                        <div class="submenu-item">
-                            <span>First submenu</span>
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </div>
-                        <ul class="menu-items submenu">
-                            <div class="menu-title">
-                                <i class="fa-solid fa-chevron-left"></i>
-                                Your submenu title
-                            </div>
-                            <li class="item">
-                                <a href="Contact.aspx">First sublink</a>
-                            </li>
-                            <li class="item">
-                                <a href="#">First sublink</a>
-                            </li>
-                            <li class="item">
-                                <a href="#">First sublink</a>
-                            </li>
-                        </ul>
-                    </li>
+                    
                     
                     
                 </ul>
                 <div class="bottom-cotent">
                     <li class="list">
-                        <a href="#" class="nav-link">
+                        <a href="/View/Inicio/Soporte.aspx" class="nav-link">
                             <i class="bx bx-cog icon"></i>
                             <span class="link">Soporte</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="#" class="nav-link">
+                        <a href="javascript:void(0);" class="nav-link" onclick="cerrarSesion()">
                             <i class="bx bx-log-out icon"></i>
-                            <span class="link">Cerrar Sesion</span>
+                            <span class="link">Cerrar Sesión</span>
                         </a>
                     </li>
                 </div>
@@ -95,6 +81,28 @@
         </div>
     </nav>
     <section class="overlay"></section>
+    <script type="text/javascript">
+        function cerrarSesion() {
+            // Eliminar la cookie del JWT
+            document.cookie = "JWTToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+            // Redirigir al login
+            window.location.href = '/View/Inicio/Login.aspx';
+
+            // Opcional: Asegurar que la redirección se procesará
+            setTimeout(function () {
+                window.location.replace('/View/Inicio/Login.aspx');
+            }, 1000);
+        }
+
+        // Prevenir el uso de las flechas del navegador para volver a las páginas protegidas
+        window.history.pushState(null, null, window.location.href);
+        window.onpopstate = function () {
+            // Forzar la recarga completa de la página
+            window.location.reload();
+            //window.history.go(1);
+        };
+</script>
     <script>
         const navBar = document.querySelector("nav"),
             menuBtns = document.querySelectorAll(".menu-icon"),

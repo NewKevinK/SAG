@@ -7,11 +7,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
     <!-- ===== Iconscout CSS ===== -->
+    <link href="../../css/styleLogin.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    
+    
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
     <!-- ===== CSS ===== -->
     <link href="../../css/styleLogin.css" rel="stylesheet" />
-
-   
          
     <title>Login</title> 
 
@@ -19,83 +25,87 @@
 </head>
 <body >
 
-    <div class="container" ng-controller="LoginController" >
+    <div class="container" ng-app="appLogin" ng-controller="LoginController">
         <div class="forms">
-            <div class="form login" >
+            <div class="form login">
                 <span class="title">Inicio de Sesion</span>
-                <form ng-submit="login()">
+                
                 <form action="#">
                     <div class="input-field">
-                        <input type="text" ng-model="fd.correo" placeholder="Ingresa el correo" required>
+                        <input type="text" ng-model="fd.correo" placeholder="Ingresa el correo" required />
                         <i class="uil uil-envelope icon"></i>
                     </div>
                     <div class="input-field">
-                        <input type="password" ng-model="fd.password" class="password" placeholder="Ingresa tu contraseña" required/>
+                        <input type="password" ng-model="fd.password" class="password" placeholder="Ingresa tu contraseña" required />
                         <i class="uil uil-lock icon"></i>
                         <i class="uil uil-eye-slash showHidePw"></i>
                     </div>
                     <div class="checkbox-text">
                         <div class="checkbox-content">
-                            <input type="checkbox" id="logCheck"/>
+                            <input type="checkbox" id="logCheck" />
                             <label for="logCheck" class="text">Recordar</label>
                         </div>
                         
                         <a href="#" class="text">Soporte</a>
                     </div>
                     <div class="input-field button">
-                        <a href="../../Default.aspx"  ng-click="InicioSesion();" >
-                            <input type="button" value="Iniciar">Login</input>
-
-                        </a>
+                        <input type="button" value="Login" ng-click="InicioSesion()">
                     </div>
-                    
                 </form>
-                </form>
+                
             </div>
-            
         </div>
     </div>
-        <!-- Angular -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  
+</body>
 <script>
-    var app = angular.module('myApp', []);
+    var app = angular.module('appLogin', []);
 
-   
+
 
     app.controller('LoginController', function ($scope, $http, $window) {
-        //$window.location.href = "../../Site.Master";
 
-        function __login() {
-            $http.post("../../Default.aspx", $scope.fd).then(function (response) {
-                if (response.data == "1") {
-                    $window.location.href = "../../Site.Master";
-                } else {
-                    alert("Usuario o contraseña incorrectos");
-                }
-            });
-        }
 
+
+        
         $scope.fd = {
             correo: "",
             password: ""
         }
 
-        $scope.IniciarSesion = function () {
-            $console.log("hola");
-            alert("hola");
-            //$window.location.href = "../../Site.Master";
+        $scope.InicioSesion = function () {
+            var mydata = {
+                Usuario: $scope.fd.correo,
+                Password: $scope.fd.password
+            };
+
+            try {
+
+                $http({
+                    method: 'POST',
+                    url: '/View/Inicio/Login.aspx/LoginSAG',
+                    data: mydata,
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    dataType: 'json'
+                }).then(function (response) {
+                    var resultado = response.data.d;
+                    if (resultado.Result == 1) {
+                        $window.location.href = '/../Default.aspx'; 
+                    } else {
+                        alert("Credenciales invalidas: "+resultado.Message); 
+                    }
+
+                }, function (error) {
+                    alert("Error al iniciar sesion");
+                });
+            } catch (ex) {
+                alert(ex);
+            }
+
         }
 
-        $scope.login = function () {
-            $console.log("hola");
-            //$window.location.href = "../../Site.Master";
-             
-             
-        }
+
     });
 </script>
 
-    
-    
-</body>
 </html>

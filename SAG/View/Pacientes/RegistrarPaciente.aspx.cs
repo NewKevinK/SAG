@@ -52,7 +52,7 @@ namespace SAG.View.Pacientes
         {
             Models.Paciente paciente = new Models.Paciente();
             Models.PacienteResponsable responsable = new Models.PacienteResponsable();
-            Models.ApiRespuesta respuesta = new Models.ApiRespuesta();
+            Models.ApiRespuesta respuestaDI = new Models.ApiRespuesta();
             ControllerPaciente controllerPaciente = new ControllerPaciente();
             
             try
@@ -89,18 +89,15 @@ namespace SAG.View.Pacientes
                 responsable.Domicilio = DomicilioResponsable;
                 responsable.Telefono = TelefonoResponsable;
 
-                //controllerPaciente.InsertarPaciente(paciente, responsable);
-                
-                respuesta.Action = "Registrar Paciente";
-                respuesta.Result = "1";
-                respuesta.Message = "Paciente registrado correctamente";
-                //respuesta.Data = controllerPaciente.InsertarPaciente(paciente, responsable);
 
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                //return js.Serialize(respuesta);
+                ApiRespuesta respuesta = controllerPaciente.InsertarPaciente(paciente, responsable);
+                if(respuesta.Result == 1)
+                {
+                    respuestaDI = controllerPaciente.InsertarPacienteDetalleInterno();
 
-                return controllerPaciente.InsertarPaciente(paciente, responsable);
+                }
                 
+                return respuesta;
             }
             catch (Exception ex)
             {

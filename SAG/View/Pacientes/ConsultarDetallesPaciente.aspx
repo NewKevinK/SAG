@@ -95,10 +95,7 @@
                     <label  class="col-sm-4">Fecha de Modificacion:</label>
                     <input type="text" class="form-control custom-input" ng-model="PacienteDetalles.FechaModificacion"  readonly>
                 </div>
-                <div class="form-group d-flex mb-2">
-                    <label class="col-sm-4">Ambulancia:</label>
-                    <input type="checkbox"  ng-model="ngAmbulancia" >
-                </div>
+                
 
             </div>
         </div>
@@ -121,6 +118,110 @@
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         <div class="container">
             <header>Informacion del Paciente</header>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditarInformacionPaciente">
+                Editar Información del Paciente
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalEditarInformacionPaciente" tabindex="-1" aria-labelledby="modalEditarInformacionPacienteLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEditarInformacionPacienteLabel">Editar Información del Paciente</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="tipoAtencion" class="form-label">Tipo de Atención</label>
+                                    <input type="text" class="form-control" id="tipoAtencion" ng-model="PacienteDetalles.TipoAtencion">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estadoSalud" class="form-label">Estado de Salud</label>
+                                    <input type="text" class="form-control" id="estadoSalud" ng-model="PacienteInformacion.EstadoSalud">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaIngreso" class="form-label">Fecha de Ingreso</label>
+                                    <input type="date" class="form-control" id="fechaIngreso" ng-model="PacienteInformacion.FechaIngreso">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cama" class="form-label">Cama</label>
+                                    <input type="text" class="form-control" id="cama" ng-model="PacienteInformacion.Cama">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="area" class="form-label">Área</label>
+                                    <input type="text" class="form-control" id="area" ng-model="PacienteInformacion.Area">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tipoSeguro" class="form-label">Tipo de Seguro</label>
+                                    <input type="text" class="form-control" id="tipoSeguro" ng-model="PacienteInformacion.TipoSeguro">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="folio" class="form-label">Folio</label>
+                                    <input type="text" class="form-control" id="folio" ng-model="PacienteInformacion.Folio">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estadoPaciente" class="form-label">Estado del Paciente</label>
+                                    <select class="form-select" id="estadoPaciente" ng-model="PacienteInformacion.EstadoPaciente">
+                                        <option value="Internado">Internado</option>
+                                        <option value="Hospitalizado">Hospitalizado</option>
+                                        <option value="Egreso">Egreso</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaAlta" class="form-label">Fecha de Alta</label>
+                                    <input type="date" class="form-control" id="fechaAlta" ng-model="PacienteInformacion.FechaAlta">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaEgreso" class="form-label">Fecha de Egreso</label>
+                                    <input type="date" class="form-control" id="fechaEgreso" ng-model="PacienteInformacion.FechaEgreso">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="motivoEgreso" class="form-label">Motivo de Egreso</label>
+                                    <input type="text" class="form-control" id="motivoEgreso" ng-model="PacienteInformacion.MotivoEgreso">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sondaInstalada" class="form-label">Sonda Instalada</label>
+                                    <select class="form-select" id="sondaInstalada" ng-model="PacienteInformacion.SondaInstalada">
+                                        <option value="Sí">Sí</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaSondaInstalacion" class="form-label">Fecha Instalación</label>
+                                    <input type="date" class="form-control" id="fechaSondaInstalacion" ng-model="PacienteInformacion.FechaSondaInstalacion">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cirugiaProgramada" class="form-label">Cirugía Programada</label>
+                                    <select class="form-select" id="cirugiaProgramada" ng-model="PacienteInformacion.CirugiaProgramada">
+                                        <option value="Sí">Sí</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="procedimiento" class="form-label">Procedimiento</label>
+                                    <input type="text" class="form-control" id="procedimiento" ng-model="PacienteInformacion.Procedimiento">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fechaCirugia" class="form-label">Fecha de Cirugía</label>
+                                    <input type="date" class="form-control" id="fechaCirugia" ng-model="PacienteInformacion.FechaCirugia">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="observaciones" class="form-label">Observaciones</label>
+                                    <textarea class="form-control" id="observacionesx" ng-model="PacienteInformacion.ObservacionCirugia"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" ng-click="guardarInformacionPaciente()">Guardar cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="row">
                 <!-- Columna izquierda: Información del paciente -->
                 <div class="col-lg-8">
@@ -133,7 +234,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Fecha de Ingreso:</label>
-                                <input type="text" class="form-control" ng-model="PacienteInformacion.FechaIngreso" readonly>
+                                <input type="date" class="form-control" ng-model="PacienteInformacion.FechaIngreso" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Cama:</label>
@@ -161,11 +262,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Fecha de alta:</label>
-                                <input type="text" class="form-control" ng-model="PacienteInformacion.FechaAlta" readonly>
+                                <input type="date" class="form-control" ng-model="PacienteInformacion.FechaAlta" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Fecha de egreso:</label>
-                                <input type="text" class="form-control" ng-model="PacienteInformacion.FechaEgreso" readonly>
+                                <input type="date" class="form-control" ng-model="PacienteInformacion.FechaEgreso" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Motivo de egreso:</label>
@@ -182,7 +283,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Fecha instalacion:</label>
-                                <input type="text" class="form-control" ng-model="PacienteInformacion.FechaSondaInstalacion" readonly>
+                                <input type="date" class="form-control" ng-model="PacienteInformacion.FechaSondaInstalacion" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Cirugia programada:</label>
@@ -194,7 +295,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Fecha de cirugia:</label>
-                                <input type="text" class="form-control" ng-model="PacienteInformacion.FechaCirugia" readonly>
+                                <input type="date" class="form-control" ng-model="PacienteInformacion.FechaCirugia" readonly>
                             </div>
                             <div class="form-group">
                                 <label>Observaciones:</label>
@@ -210,6 +311,35 @@
 
                 <!-- Columna derecha: Tabla de servicios -->
                 <div class="col-lg-4">
+                    <h4>Servicios del Paciente</h4>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#servicioModal">
+                        Registrar Servicio
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="servicioModal" tabindex="-1" aria-labelledby="servicioModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="servicioModalLabel">Registrar Servicio</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="Servicio" class="form-label">Servicio</label>
+                                            <input type="text" class="form-control" id="Servicio" ng-model="nuevoServicio.Servicio">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary" ng-click="registrarServicio()">Registrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <table class="table table-bordered" id="datatable_Servicios">
                         <thead>
                             <tr>
@@ -240,6 +370,47 @@
 
         <div class="container">
             <header>Diagnósticos del Paciente</header>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistrarDiagnostico">
+                Registrar Nuevo Diagnóstico
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalRegistrarDiagnostico" tabindex="-1" aria-labelledby="modalRegistrarDiagnosticoLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalRegistrarDiagnosticoLabel">Registrar Diagnóstico</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="medicoEncargado" class="form-label">Médico Encargado</label>
+                                    <input type="text" class="form-control" id="medicoEncargado" placeholder="Ingrese el nombre del médico">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="diagnostico" class="form-label">Diagnóstico</label>
+                                    <input type="text" class="form-control" id="diagnostico" placeholder="Ingrese el diagnóstico">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tipoDiagnostico" class="form-label">Tipo de Diagnóstico</label>
+                                    <input type="text" class="form-control" id="tipoDiagnostico" placeholder="Ingrese el tipo de diagnóstico">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="observaciones" class="form-label">Observaciones</label>
+                                    <textarea class="form-control" id="observaciones" rows="3" placeholder="Ingrese las observaciones"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" ng-click="registrarDiagnostico()">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="row">
                 <!-- Columna izquierda para la tabla de diagnósticos -->
@@ -293,6 +464,42 @@
         
         <div class="container">
         <header>Alergias del Paciente</header>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalRegistrarAlergia">
+            Agregar Alergia
+        </button>
+
+        <!-- Modal para registrar nueva alergia -->
+        <div class="modal fade" id="modalRegistrarAlergia" tabindex="-1" aria-labelledby="modalAlergiaLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalAlergiaLabel">Registrar Alergia</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                
+                                <div class="mb-3">
+                                    <label for="inputTipoAlergia" class="form-label">Tipo de Alergia</label>
+                                    <input type="text" class="form-control" id="inputTipoAlergia" ng-model="nuevaAlergia.TipoAlergia">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputCausante" class="form-label">Causante</label>
+                                    <input type="text" class="form-control" id="inputCausante" ng-model="nuevaAlergia.Causante">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="inputDetallesAlergia" class="form-label">Detalles</label>
+                                    <textarea class="form-control" id="inputDetallesAlergia" ng-model="nuevaAlergia.Detalles"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" ng-click="registrarAlergia()">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <!-- Columna izquierda para la tabla  -->
@@ -368,6 +575,175 @@
 
         $scope.ListaPacienteAlergias = [];
 
+        //-Modal Diagnostico
+        $scope.registrarDiagnostico = function () {
+            var nuevoDiagnostico = {
+                IdPaciente : idPaciente,
+                MedicoEncargado: document.getElementById('medicoEncargado').value,
+                Diagnostico: document.getElementById('diagnostico').value,
+                TipoDiagnostico: document.getElementById('tipoDiagnostico').value,
+                Observaciones: document.getElementById('observaciones').value
+            };
+            
+            $http({
+                method: 'POST',
+                url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/InsertarDiagnostico',
+                data: nuevoDiagnostico,
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                dataType: 'json'
+            }).then(function (response) {
+                var resultado = response.data.d;
+                if (resultado.Result == 1) {
+                    // Cerrar el modal después de registrar
+                    $('#modalRegistrarDiagnostico').modal('hide');
+
+                    // Limpiar los campos del modal
+                    $scope.MedicoEncargado = '';
+                    $scope.Diagnostico = '';
+                    $scope.TipoDiagnostico = '';
+                    $scope.Observaciones = '';
+
+                    // Actualizar la lista de diagnósticos
+                    $scope.obtenerDiagnosticosPaciente();
+                } else {
+                    alert(resultado.Message);
+                }
+
+            }, function (error) {
+                alert("Ocurrió un error al registrar el diagnóstico");
+            });
+        };
+
+        $scope.nuevaAlergia = {
+            IdPaciente: idPaciente,  
+            TipoAlergia: '',
+            Causante: '',
+            Detalles: ''
+        };
+
+        // Modal Alergia
+        $scope.registrarAlergia = function () {
+            var alergiaData = {
+                IdPaciente: $scope.nuevaAlergia.IdPaciente,
+                TipoAlergia: $scope.nuevaAlergia.TipoAlergia,
+                Causante: $scope.nuevaAlergia.Causante,
+                Detalles: $scope.nuevaAlergia.Detalles
+            };
+
+            $http({
+                method: 'POST',
+                url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/InsertarAlergia',
+                data: alergiaData,
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                dataType: 'json'
+            }).then(function (response) {
+                var resultado = response.data.d;
+                if (resultado.Result == 1) {
+                    alert('Alergia registrada correctamente');
+                    // Puedes actualizar la lista de alergias si es necesario
+                    const d = new Date();
+                    var aD = {
+                        FechaRegistro: d.toString(),
+                        IdPaciente: $scope.nuevaAlergia.IdPaciente,
+                        TipoAlergia: $scope.nuevaAlergia.TipoAlergia,
+                        Causante: $scope.nuevaAlergia.Causante,
+                        Detalles: $scope.nuevaAlergia.Detalles
+                    };
+                    //var aD = alergiaData;
+
+                    $scope.ListaPacienteAlergias.push(aD);
+                    $('#modalRegistrarAlergia').modal('hide');
+                    try {
+                        //$scope.obtenerAlergiasPaciente();
+                    } catch (ex) {
+                        alert(ex);
+                    }
+                    
+                } else {
+                    alert(resultado.Message);
+                }
+            }, function (error) {
+                alert('Error en la petición: ' + error.statusText);
+            });
+        };
+
+        //Modal Servcio
+        $scope.registrarServicio = function () {
+            var datosServicio = {
+                IdPaciente: idPaciente, 
+                Servicio: $scope.nuevoServicio.Servicio
+            };
+
+            $http({
+                method: 'POST',
+                url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/InsertarServicio',
+                data: datosServicio,
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                dataType: 'json'
+            }).then(function (response) {
+                var resultado = response.data.d;
+                if (resultado.Result == 1) {
+                    $('#servicioModal').modal('hide');
+
+                    // Limpiar los campos del modal
+                    $scope.nuevoServicio = {};
+
+                    // Actualizar la lista de servicios
+                    $scope.obtenerServiciosPaciente();
+                } else {
+                    alert(resultado.Message);
+                }
+            });
+        };
+
+        //Modal InformacionPAciente
+        $scope.guardarInformacionPaciente = function () {
+            
+            var pacienteInfo = {
+                IdPaciente: idPaciente, 
+                TipoAtencion: $scope.PacienteDetalles.TipoAtencion || null,
+                EstadoSalud: $scope.PacienteInformacion.EstadoSalud || null,
+                FechaIngreso: $scope.PacienteInformacion.FechaIngreso ? new Date($scope.PacienteInformacion.FechaIngreso) : null,
+                Cama: $scope.PacienteInformacion.Cama || null,
+                Area: $scope.PacienteInformacion.Area || null,
+                TipoSeguro: $scope.PacienteInformacion.TipoSeguro || null,
+                Folio: $scope.PacienteInformacion.Folio || null,
+                EstadoPaciente: $scope.PacienteInformacion.EstadoPaciente || null,
+                FechaAlta: $scope.PacienteInformacion.FechaAlta ? new Date($scope.PacienteInformacion.FechaAlta) : null,
+                FechaEgreso: $scope.PacienteInformacion.FechaEgreso ? new Date($scope.PacienteInformacion.FechaEgreso) : null,
+                MotivoEgreso: $scope.PacienteInformacion.MotivoEgreso || null,
+                SondaInstalada: $scope.PacienteInformacion.SondaInstalada || null,
+                FechaSondaInstalacion: $scope.PacienteInformacion.FechaSondaInstalacion ? new Date($scope.PacienteInformacion.FechaSondaInstalacion) : null,
+                CirugiaProgramada: $scope.PacienteInformacion.CirugiaProgramada || null,
+                Procedimiento: $scope.PacienteInformacion.Procedimiento || null,
+                FechaCirugia: $scope.PacienteInformacion.FechaCirugia ? new Date($scope.PacienteInformacion.FechaCirugia) : null,
+                Observaciones: $scope.PacienteInformacion.ObservacionCirugia || null
+            };
+
+            $http({
+                method: 'POST',
+                url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/UpdateDetallesInformacionPaciente',
+                data: pacienteInfo,
+                headers: { 'Content-Type': 'application/json; charset=utf-8' }
+            }).then(function (response) {
+                var resultado = response.data.d;
+                if (resultado.Result == 1) {
+                    $('#modalEditarInformacionPaciente').modal('hide'); 
+                    $scope.obtenerDetallesInformacionPaciente();
+                } else {
+                    alert(resultado.Message);
+                }
+                
+            }, function (error) {
+                alert('Error al actualizar la información');
+            });
+        };
+
+
+
+
+
+        //Detalles
         try {
             $http({
                 method: 'POST',
@@ -377,18 +753,40 @@
                 dataType: 'json'
             }).then(function (response) {
                 var paciente = response.data.d[0];
-                //alert(paciente.Nombres);
-                //alert(paciente.Nombres);
-                //alert(paciente.FechaNacimiento);
-                //$scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
 
+             
+                
                 $scope.PacienteDetalles = paciente;
+                $scope.PacienteDetalles.NumeroExpediente = idPaciente;
 
             });
         } catch (ex) {
             alert(ex);
         }
 
+        $scope.obtenerDetallesInformacionPaciente = function () {
+            try {
+                $http({
+                    method: 'POST',
+                    url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/GetDetallesPaciente',
+                    data: mydata,
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    dataType: 'json'
+                }).then(function (response) {
+                    var paciente = response.data.d[0];
+
+
+
+                    $scope.PacienteDetalles = paciente;
+                    $scope.PacienteDetalles.NumeroExpediente = idPaciente;
+
+                });
+            } catch (ex) {
+                alert(ex);
+            }
+        };
+
+        //Informacion del paciente
         try {
             $http({
                 method: 'POST',
@@ -398,7 +796,23 @@
                 dataType: 'json'
             }).then(function (response) {
                 var paciente = response.data.d[0];
-                
+
+                if (paciente.FechaIngreso) {
+                    paciente.FechaIngreso = new Date(paciente.FechaIngreso);
+                    //
+                }
+                if (paciente.FechaAlta) {
+                    paciente.FechaAlta = new Date(paciente.FechaAlta);
+                }
+                if (paciente.FechaEgreso) {
+                    paciente.FechaEgreso = new Date(paciente.FechaEgreso);
+                }
+                if (paciente.FechaSondaInstalacion) {
+                    paciente.FechaSondaInstalacion = new Date(paciente.FechaSondaInstalacion);
+                }
+                if (paciente.FechaCirugia) {
+                    paciente.FechaCirugia = new Date(paciente.FechaCirugia);
+                }
                 //alert(paciente.FechaNacimiento);
                 //$scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
 
@@ -456,6 +870,22 @@
             alert(ex);
         }
 
+        $scope.obtenerServiciosPaciente = function () {
+            $http({
+                method: 'POST',
+                url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/GetInformacionPacienteServicio',
+                data: { IdPaciente: idPaciente },
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                dataType: 'json'
+            }).then(function (response) {
+                
+
+                $scope.ListaPacienteInformacionServicios = response.data.d;
+            });
+        };
+        
+
+
         try {
             $http({
                 method: 'POST',
@@ -475,6 +905,66 @@
         $scope.seleccionarDiagnostico = function (diagnostico) {
             $scope.diagnosticoSeleccionado = angular.copy(diagnostico);
         };
+
+        $scope.obtenerDiagnosticosPaciente = function () {
+            try {
+                $http({
+                    method: 'POST',
+                    url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/GetDiagnosticosPaciente',
+                    data: mydata, 
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    dataType: 'json'
+                }).then(function (response) {
+                    $scope.ListaPacienteDiagnosticos = response.data.d;
+                });
+            } catch (ex) {
+                alert(ex);
+            }
+        };
+
+        $scope.obtenerAlergiasPaciente = function () {
+            try {
+                $http({
+                    method: 'POST',
+                    url: '/View/Pacientes/ConsultarDetallesPaciente.aspx/GetAlergiasPaciente',
+                    data: mydata,
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    dataType: 'json'
+                }).then(function (response) {
+                    $scope.ListaPacienteAlergias = response.data.d;
+
+                    var dataTableOptions = {
+                        pageLength: 9,
+                        destroy: true,
+                        language: {
+                            lengthMenu: "Mostrar _MENU_ registros por página",
+                            zeroRecords: "Ninguna alergia encontrada",
+                            info: "Mostrando de _START_ a _END_ de un total de _TOTAL_ registros",
+                            infoEmpty: "Ninguna alergia encontrada",
+                            infoFiltered: "(filtrados desde _MAX_ registros totales)",
+
+                            loadingRecords: "Cargando...",
+                            paginate: {
+                                first: "Primero",
+                                last: "Último",
+                                next: "Siguiente",
+                                previous: "Anterior"
+                            }
+                        }
+
+                    };
+
+                    $timeout(function () {
+
+                        $('#datatable_Alergias').DataTable(dataTableOptions);
+
+                    });
+                });
+            } catch (ex) {
+                alert(ex);
+            }
+        }
+
 
 
 

@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace SAG
+namespace SAG.View.Pacientes
 {
 
 
-    public partial class About
+    public partial class BuscarPaciente
     {
     }
 }
