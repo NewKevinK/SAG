@@ -7,7 +7,7 @@ namespace SAG.Models
 {
     public class DetallesPaciente
     {
-        //atributos: TipoAtencion, ApellidoPaterno, ApellidoMaterno, Nombres, Nacionalidad, CURP, NumeroExpediente, FechaNacimiento, Edad, Sexo, FechaAdmision, FechaModificacion, Ambulancia.
+        
         public string TipoAtencion { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
@@ -21,7 +21,6 @@ namespace SAG.Models
         public string FechaAdmision { get; set; }
         public string FechaModificacion { get; set; }
         public string Ambulancia { get; set; }
-        //atributos: EstadoSalud, FechaIngreso, Cama, Area, Diagnostico, TipoSeguro, Folio, EstadoPaciente, FechaAlta, FechaEgreso, MotivoEgreso, SondaInstalada, FechaSondaInstalacion, FechaCirugia, CirugiaProgramada, Procedimiento, ObservacionCirugia.
         public string EstadoSalud { get; set; }
         public string FechaIngreso { get; set; }
 

@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using SAG.Models;
 using SAG.Controller;
 using System.Web.Script.Serialization;
+using System.Security.Claims;
 
 namespace SAG.View.Pacientes
 {
@@ -16,9 +17,60 @@ namespace SAG.View.Pacientes
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            // Eliminar todas las sesiones
+            Session.Clear();
+            Session.Abandon();
+
+            // Desactivar la caché
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddDays(-1));
+            Response.Cache.SetNoStore();
+
+            // Verificar si el usuario está autenticado
+            var token = HttpContext.Current.Request.Cookies["JWTToken"]?.Value;
+
+            if (string.IsNullOrEmpty(token) || ValidateToken(token) == null)
+            {
+                // Si el token no es válido o no está presente, redirigir al inicio de sesión
+                Response.Redirect("~/View/Inicio/Login.aspx");
+            }
         }
 
+        public bool ValidateToken(string token)
+        {
+            try
+            {
+                var principal = JWT.GetPrincipal(token);
+
+                if (principal == null)
+                {
+                    return false;
+                }
+
+                var identity = principal.Identity as ClaimsIdentity;
+
+                if (identity == null)
+                {
+                    return false;
+                }
+
+                var usernameClaim = identity.FindFirst(ClaimTypes.Name);
+
+                if (usernameClaim == null)
+                {
+                    return false;
+                }
+
+                var username = usernameClaim.Value;
+
+                // Opcional: realizar más validaciones si es necesario
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         [WebMethod]
         public static string Consultar()
         {
@@ -44,7 +96,7 @@ namespace SAG.View.Pacientes
 
 
         [WebMethod]
-        public static dynamic InsertarPaciente(string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, DateTime FechaNacimiento, string Sexo, 
+        public static dynamic InsertarPaciente(string Nombres, string ApellidoPaterno, string ApellidoMaterno, string CURP, string FechaNacimiento, string Sexo, 
             string EntidadNacimiento, string Afiliacion, string NumeroAfiliacion,
             string Direccion, string NumeroExterior, string NumeroInterior, string Colonia, string CodigoPostal, string Municipio, string Estado, string Pais, 
             string TelefonoTrabajo, string TelefonoCasa, string TelefonoCelular, string CorreoElectronico, string Ocupacion,
@@ -103,7 +155,9 @@ namespace SAG.View.Pacientes
             {
                 return ex.Message;
             }
-        }   
+        }  
+        
+
 
 
         protected void btnSiguiente_Click(object sender, EventArgs e)

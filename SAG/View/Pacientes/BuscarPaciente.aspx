@@ -122,7 +122,7 @@
                                 <td class="actions-col">
                                     <button class="btn btn-sm btn-primary" ng-click="editarPaciente(x.IdPaciente)"><i class="fa-solid fa-pencil"></i></button>
                                     <button class="btn btn-sm btn-secondary" ng-click="verDetalles(x.IdPaciente)">Ver Detalles</button>
-                                    <button class="btn btn-sm btn-secondary" ng-click="cambiarEstado(x.IdPaciente)">Egreso</button>
+                                    <button class="btn btn-sm btn-secondary" ng-click="cambiarEstado(x.IdPaciente)">Cambiar Estado Paciente</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -134,6 +134,31 @@
        
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+            
+            <!-- Modal para cambiar el estado del paciente -->
+            <div class="modal fade" id="cambiarEstadoModal" tabindex="-1" role="dialog" aria-labelledby="cambiarEstadoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="cambiarEstadoModalLabel">Cambiar Estado del Paciente</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="estadoPacienteSelect" class="form-label">Selecciona el nuevo estado del paciente:</label>
+                            <select class="form-select" id="estadoPacienteSelect" ng-model="nuevoEstado">
+                                <option value="" disabled selected>Seleccione un estado</option>
+                                <option value="Hospitalizado">Hospitalizado</option>
+                                <option value="Internado">Internado</option>
+                                <option value="Egreso">Egreso</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary" ng-click="confirmarCambioEstado()">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
             <!-- Modal para mostrar el resultado -->
@@ -200,7 +225,6 @@
             if ($scope.filtro.tipoPaciente == undefined) {
                 $scope.mensajeModal = "Seleccione el tipo de paciente";
                 $('#resultadoModal').modal('show');
-                //alert("Seleccione el tipo de paciente");
 
             } else {
 
@@ -208,7 +232,7 @@
                     
                     mydata.EstadoPaciente = $scope.filtro.tipoPaciente;
                     mydata.Anio = $scope.filtro.anio === "x" ? "" : $scope.filtro.anio;
-                    //alert(mydata.Anio);
+                    
                     
                     $http({
                         method: 'POST',
@@ -218,7 +242,6 @@
                         dataType: 'json'
                     }).then(function (response) {
                         $('#datatable_users').DataTable().clear().destroy();
-                        //alert(response.data.d[0].Nombres);
                         $scope.listaPacientes = response.data.d;
 
                         //test
@@ -229,18 +252,10 @@
                                 $('#datatable_users').DataTable().clear().destroy();
                                 //alert("entro al timeout");
                             }
-                            // Inicializa DataTables en la tabla
                             $('#datatable_users').DataTable(dataTableOptions);
                         });
 
-                        /*$timeout(function () {
-                            // Destruye la instancia existente de DataTable si existe
-                            if ($.fn.DataTable.isDataTable('#datatable_users')) {
-                                $('#datatable_users').DataTable().clear().destroy();
-                            }
-                            // Inicializa DataTables en la tabla
-                            $('#datatable_users').DataTable(dataTableOptions);
-                        }, 0); */
+                        
                     }, function (error) {
                         console.error("Error al obtener los datos: ", error);
                     });
@@ -257,9 +272,25 @@
             
         }
 
+       
         $scope.cambiarEstado = function (idPaciente) {
-            
-            var mydataestado = { "IdPaciente": idPaciente }
+            $scope.idPacienteSeleccionado = idPaciente;  
+            $scope.nuevoEstado = "";  
+            $('#cambiarEstadoModal').modal('show');  
+        };
+
+        $scope.confirmarCambioEstado = function () {
+            if (!$scope.nuevoEstado) {
+                $scope.mensajeModal = "Seleccione un estado.";
+                $('#resultadoModal').modal('show');
+                return;
+            }
+
+            var mydataestado = {
+                "IdPaciente": $scope.idPacienteSeleccionado,
+                "EstadoPaciente": $scope.nuevoEstado
+            };
+
             try {
                 $http({
                     method: 'POST',
@@ -269,23 +300,22 @@
                     dataType: 'json'
                 }).then(function (response) {
                     var resultado = response.data.d;
-                    
 
                     if (resultado.Result == 1) {
                         $scope.mensajeModal = resultado.Message;
-
                     } else {
-                        
                         $scope.mensajeModal = "Error: " + resultado.Message;
                     }
-                    $('#resultadoModal').modal('show');
-                    $scope.filtrarPacientes();
 
+                    $('#resultadoModal').modal('show');
+                    $('#cambiarEstadoModal').modal('hide');  
+                    $scope.filtrarPacientes();  
                 });
             } catch (ex) {
                 alert(ex);
             }
-        }
+        };
+
 
 
 

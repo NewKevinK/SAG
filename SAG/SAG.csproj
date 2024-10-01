@@ -184,13 +184,14 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="css\icon\egreso-01.png" />
+    <Content Include="css\icon\triage-01.png" />
     <Content Include="css\scriptMaster.js" />
     <Content Include="css\styleBuscarPaciente.css" />
     <Content Include="css\styleConsultarPacientes.css" />
     <Content Include="css\styleDashboard.css" />
     <Content Include="css\styleDetallesPaciente.css" />
     <Content Include="css\styleLogin.css" />
-    <Content Include="css\styleLogin2.css" />
     <Content Include="css\styleMaster.css" />
     <Content Include="css\stylePaciente.css" />
     <Content Include="css\stylePdf.css" />
@@ -368,8 +369,6 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppCode\AC_Paciente.cs" />
-    <Content Include="AppCode\ValuesController1.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controller\ControllerLogin.cs" />
@@ -392,6 +391,7 @@
     <Compile Include="Models\DetallesPaciente.cs" />
     <Compile Include="Models\DetallesPacienteServicio.cs" />
     <Compile Include="Models\Diagnostico.cs" />
+    <Compile Include="Models\Estadistica.cs" />
     <Compile Include="Models\LoginRespuesta.cs" />
     <Compile Include="Models\Paciente.cs" />
     <Compile Include="Models\PacienteFiltro.cs" />

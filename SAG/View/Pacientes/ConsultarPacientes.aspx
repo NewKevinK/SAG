@@ -29,7 +29,7 @@
         
 
         <div class="row">
-            <div class="col-sm-12">
+            <div class="table-responsive">
                 <table class="table table-striped" id="datatable_users">
                     <thead>
                         <tr>
@@ -126,7 +126,7 @@
                 try {
                     $http({
                         method: 'POST',
-                        url: 'https://localhost:44377/View/Pacientes/ConsultarPacientes.aspx/ConsultarPacientesSAG',
+                        url: '/View/Pacientes/ConsultarPacientes.aspx/ConsultarPacientesSAG',
                         data: mydata,
                         headers: { 'Content-Type': 'application/json; charset=utf-8' },
                         dataType: 'json'

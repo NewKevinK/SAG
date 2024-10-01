@@ -15,7 +15,7 @@ namespace SAG.Models
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public string CURP { get; set; }
-        public DateTime FechaNacimiento { get; set; }
+        public dynamic FechaNacimiento { get; set; } //antes DateTime
         public string Sexo { get; set; }
         public string EntidadNacimiento { get; set; }
         public string Afiliacion { get; set; }
@@ -46,7 +46,7 @@ namespace SAG.Models
         }
 
         //constructor con parametros
-        public Paciente(int idPaciente, string nombres, string apellidoPaterno, string apellidoMaterno, string cURP, DateTime fechaNacimiento, string sexo, string entidadNacimiento, string afiliacion, string numeroAfiliacion, DateTime fechaRegistro, DateTime fechaModificacion, int numeroExpediente)
+        public Paciente(int idPaciente, string nombres, string apellidoPaterno, string apellidoMaterno, string cURP, dynamic fechaNacimiento, string sexo, string entidadNacimiento, string afiliacion, string numeroAfiliacion, DateTime fechaRegistro, DateTime fechaModificacion, int numeroExpediente)
         {
             IdPaciente = idPaciente;
             Nombres = nombres;

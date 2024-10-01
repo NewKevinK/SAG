@@ -32,7 +32,8 @@ namespace SAG.Controller
                     cmd.Parameters.Add("@ApellidoPaterno", System.Data.SqlDbType.NVarChar).Value = P.ApellidoPaterno;
                     cmd.Parameters.Add("@ApellidoMaterno", System.Data.SqlDbType.NVarChar).Value = P.ApellidoMaterno;
                     cmd.Parameters.Add("@CURP", System.Data.SqlDbType.NVarChar).Value = P.CURP;
-                    cmd.Parameters.Add("@FechaNacimiento", System.Data.SqlDbType.DateTime).Value = P.FechaNacimiento;
+                    //cmd.Parameters.Add("@FechaNacimiento", System.Data.SqlDbType.DateTime).Value = P.FechaNacimiento;
+                    cmd.Parameters.AddWithValue("@FechaNacimiento", P.FechaNacimiento == null ? (object)DBNull.Value : P.FechaNacimiento);
                     cmd.Parameters.Add("@Sexo", System.Data.SqlDbType.NVarChar).Value = P.Sexo;
                     cmd.Parameters.Add("@EntidadNacimiento", System.Data.SqlDbType.NVarChar).Value = P.EntidadNacimiento;
                     cmd.Parameters.Add("@Afiliacion", System.Data.SqlDbType.NVarChar).Value = P.Afiliacion;
@@ -68,7 +69,6 @@ namespace SAG.Controller
 
                     cmd.ExecuteNonQuery();
 
-                    // Leer los valores de salida
                     apiRespuesta.Message = (string)messageParam.Value; 
                     apiRespuesta.Result = (int)resultParam.Value;
 
@@ -207,14 +207,11 @@ namespace SAG.Controller
                         PM.ApellidoPaterno = dr["ApellidoPaterno"].ToString();
                         PM.ApellidoMaterno = dr["ApellidoMaterno"].ToString();
                         PM.CURP = dr["CURP"].ToString();
-                        //PM.FechaNacimiento = dr["FechaNacimiento"].ToString();
-                        //PM.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]);
                         PM.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]).ToString("yyyy-MM-dd");
                         PM.Sexo = dr["Sexo"].ToString();
                         PM.EntidadNacimiento = dr["EntidadNacimiento"].ToString();
                         PM.Afiliacion = dr["Afiliacion"].ToString();
                         PM.NumeroAfiliacion = dr["NumeroAfiliacion"].ToString();
-                        //PM.NumeroAfiliacion = Convert.ToInt32(dr["NumeroAfiliacion"]);
                         PM.Direccion = dr["Direccion"].ToString();
                         PM.NumeroExterior = dr["NumeroExterior"].ToString();
                         PM.NumeroInterior = dr["NumeroInterior"].ToString();
@@ -235,13 +232,8 @@ namespace SAG.Controller
                         PM.DomicilioResponsable = dr["DomicilioResponsable"].ToString();
                         PM.TelefonoResponsable = dr["TelefonoResponsable"].ToString();
 
-                        
                         lista.Add(PM);
                     }
-
-
-
-
                     return lista;
                 }
 
@@ -264,17 +256,12 @@ namespace SAG.Controller
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                     List<ConsuPacien> lista = new List<ConsuPacien>();
-                    //lo que recupere lo ira guardando en la lista
                     SqlDataReader dr = cmd.ExecuteReader();
                     while (dr.Read())
                     {
-                        
                         ConsuPacien CP = new ConsuPacien();
                         CP.IdPaciente = Convert.ToInt32(dr["IdPaciente"]);
-                        //CP.FechaRegistro = dr["FechaRegistro"].ToString();
                         CP.FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]).ToString("yyyy-MM-dd HH:mm:ss");
-                        //puede ser yyyy-MM-dd 
-
                         CP.CURP = dr["CURP"].ToString();
                         CP.ApellidoPaterno = dr["ApellidoPaterno"].ToString();
                         CP.ApellidoMaterno = dr["ApellidoMaterno"].ToString();
@@ -315,14 +302,12 @@ namespace SAG.Controller
                         DP.Nombres = dr["Nombres"].ToString();
                         DP.Nacionalidad = dr["Nacionalidad"].ToString();
                         DP.CURP = dr["CURP"].ToString();
-                        //DP.NumeroExpediente = dr["NumeroExpediente"].ToString();
                         DP.FechaNacimiento = dr["FechaNacimiento"].ToString();
                         DP.Edad = dr["Edad"].ToString();
                         DP.Sexo = dr["Sexo"].ToString();
                         
                         DP.FechaAdmision = dr["FechaAdmision"].ToString();
                         DP.FechaModificacion = dr["FechaModificacion"].ToString();
-                        //DP.Ambulancia = dr["Ambulancia"].ToString();
 
                         lista.Add(DP);
                     }
@@ -355,26 +340,18 @@ namespace SAG.Controller
                     {
                         DetallesPaciente DP = new DetallesPaciente();
                         DP.EstadoSalud = dr["EstadoSalud"].ToString();
-                        //DP.FechaIngreso = Convert.ToDateTime(dr["FechaIngreso"]).ToString("yyyy-MM-dd");
                         DP.FechaIngreso = dr["FechaIngreso"] != DBNull.Value ? Convert.ToDateTime(dr["FechaIngreso"]).ToString("yyyy-MM-dd") : null;
                         DP.Cama = dr["Cama"].ToString();
                         DP.Area = dr["Area"].ToString();
                         DP.Diagnostico = dr["Diagnostico"].ToString();
                         DP.TipoSeguro = dr["TipoSeguro"].ToString();
                         DP.Folio = dr["Folio"].ToString();
-                        DP.EstadoPaciente = dr["EstadoPaciente"].ToString();
-                        //DP.FechaAlta = dr["FechaAlta"].ToString();
-                        //DP.FechaAlta = Convert.ToDateTime(dr["FechaAlta"]).ToString("yyyy-MM-dd"); 
+                        DP.EstadoPaciente = dr["EstadoPaciente"].ToString(); 
                         DP.FechaAlta = dr["FechaAlta"] != DBNull.Value ? Convert.ToDateTime(dr["FechaAlta"]).ToString("yyyy-MM-dd") : null;
-
-                        //DP.FechaEgreso = dr["FechaEgreso"].ToString();
-                        //DP.FechaEgreso = Convert.ToDateTime(dr["FechaEgreso"]).ToString("yyyy-MM-dd");
                         DP.FechaEgreso = dr["FechaEgreso"] != DBNull.Value ? Convert.ToDateTime(dr["FechaEgreso"]).ToString("yyyy-MM-dd") : null;
 
                         DP.MotivoEgreso = dr["MotivoEgreso"].ToString();
                         DP.SondaInstalada = dr["SondaInstalada"].ToString();
-                        //DP.FechaSondaInstalacion = dr["FechaSondaInstalacion"].ToString();
-                        //DP.FechaSondaInstalacion = Convert.ToDateTime(dr["FechaSondaInstalacion"]).ToString("yyyy-MM-dd");
                         DP.FechaSondaInstalacion = dr["FechaSondaInstalacion"] != DBNull.Value ? Convert.ToDateTime(dr["FechaSondaInstalacion"]).ToString("yyyy-MM-dd") : null;
                         //DP.FechaCirugia = Convert.ToDateTime(dr["FechaCirugia"]).ToString("yyyy-MM-dd");
                         DP.FechaCirugia = dr["FechaCirugia"] != DBNull.Value ? Convert.ToDateTime(dr["FechaCirugia"]).ToString("yyyy-MM-dd") : null;
@@ -415,8 +392,6 @@ namespace SAG.Controller
                         DetallesPacienteServicio DP = new DetallesPacienteServicio();
                         DP.Servicio = dr["Servicio"].ToString();
                         DP.FechaRegistro = dr["FechaRegistro"].ToString();
-
-
 
                         lista.Add(DP);
                     }
@@ -534,12 +509,8 @@ namespace SAG.Controller
                     {
                         PacienteFiltro PF = new PacienteFiltro();
                         PF.IdPaciente = Convert.ToInt32(dr["IdPaciente"]);
-                        PF.NumeroExpediente = dr["NumeroExpediente"].ToString();
-                        //PF.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]);
+                        
                         PF.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]).ToString("yyyy-MM-dd");
-                        //PF.FechaNacimiento = Convert.ToDateTime(dr["FechaNacimiento"]).ToString("yyyy-MM-dd HH:mm:ss"); 
-
-                        //PF.FechaNacimiento = dr["FechaNacimiento"].ToString();
                         PF.CURP = dr["CURP"].ToString();
                         PF.ApellidoPaterno = dr["ApellidoPaterno"].ToString();
                         PF.ApellidoMaterno = dr["ApellidoMaterno"].ToString();
@@ -590,7 +561,6 @@ namespace SAG.Controller
                     {
                         PacienteOficio PO = new PacienteOficio();
                         PO.ID = Convert.ToInt32(dr["ID"]);
-                        PO.NoExp = dr["NumExp"].ToString();
                         PO.FDN = Convert.ToDateTime(dr["FDN"]);
                         PO.CURP = dr["CURP"].ToString();
                         PO.ApellidoP = dr["ApellidoP"].ToString();
@@ -745,7 +715,7 @@ namespace SAG.Controller
         }
 
 
-        public dynamic CambiarEstadoPaciente(int IdPaciente)
+        public dynamic CambiarEstadoPaciente(int IdPaciente, string EstadoPaciente)
         {
             try
             {
@@ -756,6 +726,7 @@ namespace SAG.Controller
                     ApiRespuesta apiRespuesta = new ApiRespuesta();
 
                     cmd.Parameters.Add("@IdPaciente", System.Data.SqlDbType.Int).Value = IdPaciente;
+                    cmd.Parameters.Add("@EstadoPaciente", System.Data.SqlDbType.NVarChar).Value = EstadoPaciente;
 
 
                     var messageParam = cmd.Parameters.Add("@Message", SqlDbType.NVarChar, 100);
@@ -935,6 +906,93 @@ namespace SAG.Controller
                     con.Close();
 
                     return apiRespuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+        public dynamic RecuperarEstadisticaSemanalHome()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[RecuperarEstadisticaSemanalHome]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    List<Estadistica> lista = new List<Estadistica>();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Estadistica E = new Estadistica();
+                        E.Fecha = Convert.ToDateTime(dr["FechaIngreso"]).ToString("yyyy-MM-dd");
+                        E.PacientesIngresados = Convert.ToInt32(dr["PacientesIngresados"]);
+                        lista.Add(E);
+                    }
+                    con.Close();
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+        public dynamic RecuperarEstadisticaDiariaHome()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[RecuperarEstadisticaDiariaHome]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    Estadistica E = new Estadistica();
+                    while (dr.Read())
+                    {
+                        
+                        E.PacientesIngresados = Convert.ToInt32(dr["PacientesIngresadosHoy"]);
+                        E.PacientesEgresados = Convert.ToInt32(dr["PacientesEgresoHoy"]);
+                    }
+                    con.Close();
+                    return E;
+                }
+            }
+            catch (Exception ex)
+            {
+                con.Close();
+                throw ex;
+            }
+        }
+
+        public dynamic RecuperarPacientesHome()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[dbo].[RecuperarPacientesHome]", con))
+                {
+                    con.Open();
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    List<DetallesPaciente> lista = new List<DetallesPaciente>();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        DetallesPaciente DE = new DetallesPaciente();
+                        DE.NumeroExpediente = dr["IdPaciente"].ToString();
+                        DE.Nombres = dr["Nombres"].ToString();
+                        DE.CURP = dr["CURP"].ToString();
+                        DE.EstadoPaciente = dr["EstadoPaciente"].ToString();
+                        lista.Add(DE);
+                    }
+                    con.Close();
+                    return lista;
                 }
             }
             catch (Exception ex)

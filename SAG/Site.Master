@@ -26,13 +26,14 @@
     <nav>
         <div class="logo">
             <i class="bx bx-menu menu-icon"></i>
-            <span class="logo-name">SAG</span>
+            <a href="/Default.aspx" class="logo-name">SAG</a>
+            <!-- Logo con enlace -->
         </div>
         <div class="sidebar">
-            <div class="logo">
-                <i class="bx bx-menu menu-icon"></i>
-                <span class="logo-name">SAG</span>
-            </div>
+        <div class="logo">
+            <i class="bx bx-menu menu-icon"></i>
+            <a href="/Default.aspx" class="logo-name">SAG</a> <!-- Logo en el menú lateral -->
+        </div>
             <div class="sidebar-content">
                 <ul class="lists">
                     <li class="list">
@@ -96,7 +97,7 @@
         }
 
         // Prevenir el uso de las flechas del navegador para volver a las páginas protegidas
-        window.history.pushState(null, null, window.location.href);
+        //window.history.pushState(null, null, window.location.href);
         window.onpopstate = function () {
             // Forzar la recarga completa de la página
             window.location.reload();

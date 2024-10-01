@@ -30,39 +30,44 @@
                     <div class="fields">
                         <div class="input-field">
                             <label>Nombres</label>
-                            <input type="text" ng-model="Paciente.Nombres" placeholder="Primeros nombres" required >
+                            <input type="text" ng-model="Paciente.Nombres" placeholder="Primeros nombres" >
                         </div>
                         <div class="input-field">
                             <label>Apellido Paterno</label>
-                            <input type="text" ng-model="Paciente.ApellidoPaterno" placeholder="Apellido Paterno" required>
+                            <input type="text" ng-model="Paciente.ApellidoPaterno" placeholder="Apellido Paterno">
                         </div>
                         <div class="input-field">
                             <label>Apellido Materno</label>
-                            <input type="text" ng-model="Paciente.ApellidoMaterno" placeholder="Apellido Materno" required>
+                            <input type="text" ng-model="Paciente.ApellidoMaterno" placeholder="Apellido Materno" >
                         </div>
                         <div class="input-field">
                             <label>CURP</label>
-                            <input type="text" ng-model="Paciente.CURP" placeholder="CURP" required>
+                            <input type="text" ng-model="Paciente.CURP" placeholder="CURP" >
                         </div>
                         <div class="input-field">
                             <label>Fecha de Nacimiento</label>
-                            <input type="date" ng-model="ngFechaNacimiento"    required>
+                            <input type="date" ng-model="ngFechaNacimiento"  >
                         </div>
                         <div class="input-field">
                             <label>Sexo</label>
-                            <input type="text" ng-model="Paciente.Sexo" placeholder="Sexo de nacimiento" required>
+                            
+                            <select id="txtSexo" ng-model="Paciente.Sexo" class="custom-select">
+                                <option value="">Seleccionar Sexo</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
                         </div>
                         <div class="input-field">
                             <label>Entidad de Nacimiento</label>
-                            <input type="text" ng-model="Paciente.EntidadNacimiento" placeholder="Ciudad donde nacio" required>
+                            <input type="text" ng-model="Paciente.EntidadNacimiento" placeholder="Ciudad donde nacio" >
                         </div>
                         <div class="input-field">
                             <label>Afiliacion</label>
-                            <input type="text" ng-model="Paciente.Afiliacion" placeholder="Afiliacion" required>
+                            <input type="text" ng-model="Paciente.Afiliacion" placeholder="Afiliacion">
                         </div>
                         <div class="input-field">
                             <label>Numero de afiliacion</label>
-                            <input type="text" ng-model="Paciente.NumeroAfiliacion" placeholder="Num Afiliacion" required>
+                            <input type="text" ng-model="Paciente.NumeroAfiliacion" placeholder="Num Afiliacion">
                         </div>
 
                     </div>
@@ -106,21 +111,15 @@
                         </div>
                         <div class="input-field">
                             <label>Telefono Trabajo</label>
-                            <input type="text" ng-model="Paciente.TelefonoTrabajo" ng-pattern="/^[0-9]+$/" placeholder="Tel Trabajo">
-                            <span ng-show="!myForm.TelefonoTrabajo.$error.pattern && myForm.TelefonoTrabajo.$dirty && myForm.TelefonoTrabajo.$error.required">Por favor, introduce un número telefónico.</span>
-                            <span ng-show="myForm.TelefonoTrabajo.$error.pattern">Por favor, introduce un número telefónico válido.</span>
+                            <input type="text" ng-model="Paciente.TelefonoTrabajo"  placeholder="Tel Trabajo">
                         </div>
                         <div class="input-field">
                             <label>Telefono Casa</label>
-                            <input type="text" ng-model="Paciente.TelefonoCasa" ng-pattern="/^[0-9]+$/" placeholder="Tel Casa" >
-                            <span ng-show="!myForm.TelefonoCasa.$error.pattern && myForm.TelefonoCasa.$dirty && myForm.TelefonoCasa.$error.required">Por favor, introduce un número telefónico.</span>
-                            <span ng-show="myForm.TelefonoCasa.$error.pattern">Por favor, introduce un número telefónico válido.</span>
+                            <input type="text" ng-model="Paciente.TelefonoCasa"  placeholder="Tel Casa" >
                         </div>
                         <div class="input-field">
                             <label>Telefono Celular</label>
-                            <input type="text" ng-model="Paciente.TelefonoCelular" ng-pattern="/^[0-9]+$/" placeholder="Tel Celular" >
-                            <span ng-show="!myForm.TelefonoCelular.$error.pattern && myForm.TelefonoCelular.$dirty && myForm.TelefonoCelular.$error.required">Por favor, introduce un número telefónico.</span>
-                            <span ng-show="myForm.TelefonoCelular.$error.pattern">Por favor, introduce un número telefónico válido.</span>
+                            <input type="text" ng-model="Paciente.TelefonoCelular"  placeholder="Tel Celular" >
                         </div>
                         <div class="input-field">
                             <label>Correo electronico</label>
@@ -164,7 +163,7 @@
                         </div>
                         <div class="input-field">
                             <label>Telefono</label>
-                            <input type="text" ng-model="Paciente.TelefonoResponsable" ng-pattern="/^[0-9]+$/" placeholder="Telefono del responsable" >
+                            <input type="text" ng-model="Paciente.TelefonoResponsable"  placeholder="Telefono del responsable" >
                         </div>
 
                         <button class="nextBtn" ng-click="ModificarPaciente()" type="button">
@@ -215,44 +214,49 @@
         $scope.Paciente = {};
 
         $scope.ModificarPaciente = function () {
-            //alert("entro al mod");
-
-            var mydata = {
-                IdPaciente: idPaciente,
-                Nombres: $scope.Paciente.Nombres,
-                ApellidoPaterno: $scope.Paciente.ApellidoPaterno,
-                ApellidoMaterno: $scope.Paciente.ApellidoMaterno || "",
-                CURP: $scope.Paciente.CURP,
-                FechaNacimiento: $scope.ngFechaNacimiento,
-                Sexo: $scope.Paciente.Sexo || "",
-                EntidadNacimiento: $scope.Paciente.EntidadNacimiento || "",
-                Afiliacion: $scope.Paciente.Afiliacion || "",
-                NumeroAfiliacion: $scope.Paciente.NumeroAfiliacion || "",
-                Direccion: $scope.Paciente.Direccion || "",
-                NumeroExterior: $scope.Paciente.NumeroExterior || "",
-                NumeroInterior: $scope.Paciente.NumeroInterior || "",
-                Colonia: $scope.Paciente.Colonia || "",
-                CodigoPostal: $scope.Paciente.CodigoPostal || "",
-                Municipio: $scope.Paciente.Municipio || "",
-                Estado: $scope.Paciente.Estado || "",
-                Pais: $scope.Paciente.Pais || "",
-                TelefonoTrabajo: $scope.Paciente.TelefonoTrabajo || "",
-                TelefonoCasa: $scope.Paciente.TelefonoCasa || "",
-                TelefonoCelular: $scope.Paciente.TelefonoCelular || "",
-                CorreoElectronico: $scope.Paciente.CorreoElectronico || "",
-                Ocupacion: $scope.Paciente.Ocupacion || "",
-                NombresResponsable: $scope.Paciente.NombresResponsable || "",
-                ApellidoPaternoResponsable: $scope.Paciente.ApellidoPaternoResponsable || "",
-                ApellidoMaternoResponsable: $scope.Paciente.ApellidoMaternoResponsable || "",
-                ParentescoResponsable: $scope.Paciente.ParentescoResponsable || "",
-                DomicilioResponsable: $scope.Paciente.DomicilioResponsable || "",
-                TelefonoResponsable: $scope.Paciente.TelefonoResponsable || ""
-            };
+            if (!$scope.Paciente.Nombres || !$scope.Paciente.ApellidoPaterno || !$scope.Paciente.Sexo || !$scope.Paciente.CURP || !$scope.ngFechaNacimiento) {
+                $scope.mensajeModal = "Los campos Nombres, Apellido Paterno, Sexo, CURP y FechaNacimiento son obligatorios.";
+                $('#resultadoModal').modal('show');
+                return;
+            }
 
             try {
+                var mydata = {
+                    IdPaciente: idPaciente,
+                    Nombres: $scope.Paciente.Nombres,
+                    ApellidoPaterno: $scope.Paciente.ApellidoPaterno,
+                    ApellidoMaterno: $scope.Paciente.ApellidoMaterno || "",
+                    CURP: $scope.Paciente.CURP,
+                    FechaNacimiento: $scope.ngFechaNacimiento,
+                    Sexo: $scope.Paciente.Sexo,
+                    EntidadNacimiento: $scope.Paciente.EntidadNacimiento || "",
+                    Afiliacion: $scope.Paciente.Afiliacion || "",
+                    NumeroAfiliacion: $scope.Paciente.NumeroAfiliacion || "",
+                    Direccion: $scope.Paciente.Direccion || "",
+                    NumeroExterior: $scope.Paciente.NumeroExterior || "",
+                    NumeroInterior: $scope.Paciente.NumeroInterior || "",
+                    Colonia: $scope.Paciente.Colonia || "",
+                    CodigoPostal: $scope.Paciente.CodigoPostal || "",
+                    Municipio: $scope.Paciente.Municipio || "",
+                    Estado: $scope.Paciente.Estado || "",
+                    Pais: $scope.Paciente.Pais || "",
+                    TelefonoTrabajo: $scope.Paciente.TelefonoTrabajo || "",
+                    TelefonoCasa: $scope.Paciente.TelefonoCasa || "",
+                    TelefonoCelular: $scope.Paciente.TelefonoCelular || "",
+                    CorreoElectronico: $scope.Paciente.CorreoElectronico || "",
+                    Ocupacion: $scope.Paciente.Ocupacion || "",
+                    NombresResponsable: $scope.Paciente.NombresResponsable || "",
+                    ApellidoPaternoResponsable: $scope.Paciente.ApellidoPaternoResponsable || "",
+                    ApellidoMaternoResponsable: $scope.Paciente.ApellidoMaternoResponsable || "",
+                    ParentescoResponsable: $scope.Paciente.ParentescoResponsable || "",
+                    DomicilioResponsable: $scope.Paciente.DomicilioResponsable || "",
+                    TelefonoResponsable: $scope.Paciente.TelefonoResponsable || ""
+                };
+
+
                 $http({
                     method: 'POST',
-                    url: 'https://localhost:44377/View/Pacientes/ModificarPaciente.aspx/UpdatePaciente',
+                    url: '/View/Pacientes/ModificarPaciente.aspx/UpdatePaciente',
                     data: mydata,
                     headers: { 'Content-Type': 'application/json; charset=utf-8' },
                     dataType: 'json'
@@ -280,16 +284,13 @@
         try {
             $http({
                 method: 'POST',
-                url: 'https://localhost:44377/View/Pacientes/ModificarPaciente.aspx/GetPaciente',
+                url: '/View/Pacientes/ModificarPaciente.aspx/GetPaciente',
                 data: mydata,
                 headers: { 'Content-Type': 'application/json; charset=utf-8' },
                 dataType: 'json'
             }).then(function (response) {
                 var paciente = response.data.d[0];
-
-                //alert(paciente.Nombres);
-                //alert(paciente.FechaNacimiento);
-                $scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
+                $scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento + 'T00:00:00'); // Formatear la fecha
                 
                 $scope.Paciente = paciente;
 

@@ -98,6 +98,11 @@
                 
 
             </div>
+            <div class="col-lg-6">
+                <div class="form-group d-flex mb-2">
+                    <button class="btn btn-warning" ng-click="ModificarPaciente(idPaciente)">Modificar Detalles Personales</button>
+                </div>
+            </div>
         </div>
 
 
@@ -119,7 +124,7 @@
         <div class="container">
             <header>Informacion del Paciente</header>
 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditarInformacionPaciente">
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditarInformacionPaciente">
                 Editar Información del Paciente
             </button>
 
@@ -562,6 +567,8 @@
 
         var urlParams = new URLSearchParams(window.location.search);
         var idPaciente = urlParams.get('IdPaciente');
+        $scope.idPaciente = idPaciente;
+
         //alert(idPaciente);
         var mydata = { IdPaciente: idPaciente };
 
@@ -574,6 +581,10 @@
         $scope.PacienteDiagnostico = {};
 
         $scope.ListaPacienteAlergias = [];
+
+        $scope.ModificarPaciente = function (idPaciente) {
+            window.location.href = "/View/Pacientes/ModificarPaciente?id=" + idPaciente;
+        };
 
         //-Modal Diagnostico
         $scope.registrarDiagnostico = function () {
@@ -594,16 +605,14 @@
             }).then(function (response) {
                 var resultado = response.data.d;
                 if (resultado.Result == 1) {
-                    // Cerrar el modal después de registrar
                     $('#modalRegistrarDiagnostico').modal('hide');
 
-                    // Limpiar los campos del modal
                     $scope.MedicoEncargado = '';
                     $scope.Diagnostico = '';
                     $scope.TipoDiagnostico = '';
                     $scope.Observaciones = '';
 
-                    // Actualizar la lista de diagnósticos
+                    // Actualizar la lista 
                     $scope.obtenerDiagnosticosPaciente();
                 } else {
                     alert(resultado.Message);
@@ -640,7 +649,6 @@
                 var resultado = response.data.d;
                 if (resultado.Result == 1) {
                     alert('Alergia registrada correctamente');
-                    // Puedes actualizar la lista de alergias si es necesario
                     const d = new Date();
                     var aD = {
                         FechaRegistro: d.toString(),
@@ -649,8 +657,7 @@
                         Causante: $scope.nuevaAlergia.Causante,
                         Detalles: $scope.nuevaAlergia.Detalles
                     };
-                    //var aD = alergiaData;
-
+                    
                     $scope.ListaPacienteAlergias.push(aD);
                     $('#modalRegistrarAlergia').modal('hide');
                     try {
@@ -685,10 +692,8 @@
                 if (resultado.Result == 1) {
                     $('#servicioModal').modal('hide');
 
-                    // Limpiar los campos del modal
                     $scope.nuevoServicio = {};
 
-                    // Actualizar la lista de servicios
                     $scope.obtenerServiciosPaciente();
                 } else {
                     alert(resultado.Message);
@@ -754,8 +759,6 @@
             }).then(function (response) {
                 var paciente = response.data.d[0];
 
-             
-                
                 $scope.PacienteDetalles = paciente;
                 $scope.PacienteDetalles.NumeroExpediente = idPaciente;
 
@@ -774,8 +777,6 @@
                     dataType: 'json'
                 }).then(function (response) {
                     var paciente = response.data.d[0];
-
-
 
                     $scope.PacienteDetalles = paciente;
                     $scope.PacienteDetalles.NumeroExpediente = idPaciente;
@@ -798,23 +799,20 @@
                 var paciente = response.data.d[0];
 
                 if (paciente.FechaIngreso) {
-                    paciente.FechaIngreso = new Date(paciente.FechaIngreso);
-                    //
+                    paciente.FechaIngreso = new Date(paciente.FechaIngreso + 'T00:00:00'); // "T00:00:00" para evitar zona horaria
                 }
                 if (paciente.FechaAlta) {
-                    paciente.FechaAlta = new Date(paciente.FechaAlta);
+                    paciente.FechaAlta = new Date(paciente.FechaAlta + 'T00:00:00');
                 }
                 if (paciente.FechaEgreso) {
-                    paciente.FechaEgreso = new Date(paciente.FechaEgreso);
+                    paciente.FechaEgreso = new Date(paciente.FechaEgreso + 'T00:00:00');
                 }
                 if (paciente.FechaSondaInstalacion) {
-                    paciente.FechaSondaInstalacion = new Date(paciente.FechaSondaInstalacion);
+                    paciente.FechaSondaInstalacion = new Date(paciente.FechaSondaInstalacion + 'T00:00:00');
                 }
                 if (paciente.FechaCirugia) {
-                    paciente.FechaCirugia = new Date(paciente.FechaCirugia);
+                    paciente.FechaCirugia = new Date(paciente.FechaCirugia + 'T00:00:00');
                 }
-                //alert(paciente.FechaNacimiento);
-                //$scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
 
                 $scope.PacienteInformacion = paciente;
 
@@ -860,10 +858,7 @@
                     // Inicializa DataTables en la tabla
 
                 });
-                
-                //$scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
-
-                //$scope.PacienteInformacion = paciente;
+            
 
             });
         } catch (ex) {
@@ -977,7 +972,6 @@
                 dataType: 'json'
             }).then(function (response) {
                 $scope.ListaPacienteAlergias = response.data.d;
-                //alert($scope.ListaPacienteInformacionServicios.Servicio);
 
                 var dataTableOptions = {
                     pageLength: 9,
@@ -1006,9 +1000,6 @@
                     // Inicializa DataTables en la tabla
 
                 });
-
-                //$scope.ngFechaNacimiento = new Date(paciente.FechaNacimiento); // Formatear la fecha
-
 
             });
         } catch (ex) {

@@ -239,6 +239,7 @@ namespace SAG.View.Pacientes
                 table.WidthPercentage = 100;
                 table.SetWidths(new float[] { 1f, 2f, 2f, 2f,  2f, 2f, 1f, 1f, 1f, 2f, 2f, 4f });
 
+
                 // Fuentes para los encabezados y valores
                 Font headerFont = FontFactory.GetFont("Arial", 9, Font.BOLD);
                 Font valueFont = FontFactory.GetFont("Arial", 7);
@@ -437,7 +438,6 @@ namespace SAG.View.Pacientes
 
                 // Agregar encabezados a la tabla
                 AddTableHeader(table, "ID", headerFont);
-                //AddTableHeader(table, "No Exp", headerFont);
                 AddTableHeader(table, "FDN", headerFont);
                 AddTableHeader(table, "CURP", headerFont);
                 AddTableHeader(table, "Apellido P", headerFont);
@@ -456,7 +456,6 @@ namespace SAG.View.Pacientes
                 foreach (var paciente in pacientes2)
                 {
                     table.AddCell(new PdfPCell(new Phrase(paciente.ID.ToString(), idFont)));
-                    //table.AddCell(new PdfPCell(new Phrase(paciente.NoExp, valueFont)));
                     table.AddCell(new PdfPCell(new Phrase(paciente.FDN.ToString("dd/MM/yyyy"), valueFont)));
                     table.AddCell(new PdfPCell(new Phrase(paciente.CURP, valueFont)));
                     table.AddCell(new PdfPCell(new Phrase(paciente.ApellidoP, valueFont)));

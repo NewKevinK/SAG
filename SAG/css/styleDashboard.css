@@ -14,15 +14,17 @@ body {
     justify-content: center;
     background: #9f002f;
     padding-top: 100px;
+    padding-left: 15px;
+    padding-right: 15px;
+    overflow-x: auto;
 }
 
 .container {
     position: relative;
-    max-width: 1000px;
+    max-width: 100%;
     width: 100%;
     border-radius: 6px;
     padding: 30px;
-    margin: 0 15px;
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     padding-top: 30px;
@@ -54,16 +56,92 @@ body {
     }
 
 
-.card {
-    text-align: center;
+.dashboard-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-    .card .card-title {
-        font-size: 18px;
+.dashboard-box {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+    .dashboard-box .icon {
+        margin-right: 15px;
+    }
+
+    .dashboard-box img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .dashboard-box .details h3 {
+        font-size: 24px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    .dashboard-box .details p {
+        font-size: 14px;
+        color: #666;
+        margin: 5px 0 0;
+    }
+
+
+
+.chart-container {
+    width: 100%;
+    height: 300px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#patientChart {
+    width: 100%;
+    height: 100%;
+}
+
+.table {
+    margin-top: 20px;
+    background-color: #fff;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+    .table th, .table td {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        text-align: center;
+        color: #333;
+    }
+
+    .table th {
+        background-color: #9f002f;
+        color: white;
         font-weight: 500;
     }
 
-    .card .card-text {
-        font-size: 36px;
-        font-weight: 700;
-    }
+.table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.btn {
+    background-color: #9f002f;
+    color: white;
+    border-radius: 4px;
+}
+
+.btn-primary:hover {
+    background-color: #d01d46;
+}
+
+

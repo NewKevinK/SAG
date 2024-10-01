@@ -138,9 +138,6 @@
                     var base64String2 = fileData.Data;
                     var fileName2 = fileData.Name;
                     
-                    //alert("esta en responde2");
-
-                    // Crear un enlace temporal para descargar el PDF
                     var link = document.createElement('a');
                     link.href = 'data:application/pdf;base64,' + base64String2;
                     link.download = fileName2;
