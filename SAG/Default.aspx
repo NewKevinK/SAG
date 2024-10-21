@@ -175,7 +175,7 @@
                 $scope.listaPacientesHoy = response.data.d;
 
                 $scope.verPaciente = function (idPaciente) {
-                    window.location.href = "/View/Pacientes/ConsultarDetallesPaciente.aspx?IdPaciente=" + idPaciente;
+                    window.location.href = "/app/Pacientes/ConsultarDetallesPaciente.aspx?IdPaciente=" + idPaciente;
                 };
 
             });
