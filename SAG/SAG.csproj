@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AspNet.ScriptManager.jQuery, Version=3.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.3.5.1\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
     <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net472\BCrypt.Net-Next.dll</HintPath>
     </Reference>
@@ -78,7 +82,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=8.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.8.0.1\lib\net472\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -116,7 +119,6 @@
     <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -130,9 +132,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.2.0.1\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="AspNet.ScriptManager.jQuery">
-      <HintPath>..\packages\AspNet.ScriptManager.jQuery.3.4.1\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.ScriptManager.MSAjax">
       <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
     </Reference>
@@ -145,6 +144,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -324,22 +324,20 @@
     <Content Include="js\bootstrap.js.map" />
     <Content Include="js\bootstrap.min.js.map" />
     <Content Include="js\bootstrap2-toggle.min.js.map" />
-    <Content Include="TestView\script.js" />
-    <Content Include="TestView\style.css" />
-    <Content Include="View\Inicio\Login.aspx" />
-    <Content Include="View\Inicio\RegistrarUsuario.aspx" />
-    <Content Include="View\Inicio\Soporte.aspx" />
-    <Content Include="View\Pacientes\BuscarPaciente.aspx" />
-    <Content Include="View\Pacientes\ConsultarDetallesPaciente.aspx" />
-    <Content Include="View\Pacientes\ConsultarPacientes.aspx" />
-    <Content Include="View\Pacientes\ModificarPaciente.aspx" />
-    <Content Include="View\Pacientes\OficiosPdf.aspx" />
-    <Content Include="View\Pacientes\RegistrarPaciente.aspx" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="app\Inicio\Login.aspx" />
+    <Content Include="app\Inicio\RegistrarUsuario.aspx" />
+    <Content Include="app\Inicio\Soporte.aspx" />
+    <Content Include="app\Pacientes\BuscarPaciente.aspx" />
+    <Content Include="app\Pacientes\ConsultarDetallesPaciente.aspx" />
+    <Content Include="app\Pacientes\ConsultarPacientes.aspx" />
+    <Content Include="app\Pacientes\ModificarPaciente.aspx" />
+    <Content Include="app\Pacientes\OficiosPdf.aspx" />
+    <Content Include="app\Pacientes\RegistrarPaciente.aspx" />
+    <None Include="Scripts\jquery-3.5.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\WebForms\DetailsView.js" />
     <Content Include="Scripts\WebForms\Focus.js" />
@@ -371,10 +369,10 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controller\ControllerLogin.cs" />
-    <Compile Include="Controller\ControllerPaciente.cs" />
-    <Compile Include="Controller\ControllerUsuario.cs" />
-    <Compile Include="Controller\JWT.cs" />
+    <Compile Include="App_Code\ControllerLogin.cs" />
+    <Compile Include="App_Code\ControllerPaciente.cs" />
+    <Compile Include="App_Code\ControllerUsuario.cs" />
+    <Compile Include="App_Code\JWT.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -420,77 +418,78 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="View\Inicio\Login.aspx.cs">
+    <Compile Include="app\Inicio\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Inicio\Login.aspx.designer.cs">
+    <Compile Include="app\Inicio\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Inicio\RegistrarUsuario.aspx.cs">
+    <Compile Include="app\Inicio\RegistrarUsuario.aspx.cs">
       <DependentUpon>RegistrarUsuario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Inicio\RegistrarUsuario.aspx.designer.cs">
+    <Compile Include="app\Inicio\RegistrarUsuario.aspx.designer.cs">
       <DependentUpon>RegistrarUsuario.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Inicio\Soporte.aspx.cs">
+    <Compile Include="app\Inicio\Soporte.aspx.cs">
       <DependentUpon>Soporte.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Inicio\Soporte.aspx.designer.cs">
+    <Compile Include="app\Inicio\Soporte.aspx.designer.cs">
       <DependentUpon>Soporte.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Pacientes\BuscarPaciente.aspx.cs">
+    <Compile Include="app\Pacientes\BuscarPaciente.aspx.cs">
       <DependentUpon>BuscarPaciente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Pacientes\BuscarPaciente.aspx.designer.cs">
+    <Compile Include="app\Pacientes\BuscarPaciente.aspx.designer.cs">
       <DependentUpon>BuscarPaciente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Pacientes\ConsultarDetallesPaciente.aspx.cs">
+    <Compile Include="app\Pacientes\ConsultarDetallesPaciente.aspx.cs">
       <DependentUpon>ConsultarDetallesPaciente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Pacientes\ConsultarDetallesPaciente.aspx.designer.cs">
+    <Compile Include="app\Pacientes\ConsultarDetallesPaciente.aspx.designer.cs">
       <DependentUpon>ConsultarDetallesPaciente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Pacientes\ConsultarPacientes.aspx.cs">
+    <Compile Include="app\Pacientes\ConsultarPacientes.aspx.cs">
       <DependentUpon>ConsultarPacientes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Pacientes\ConsultarPacientes.aspx.designer.cs">
+    <Compile Include="app\Pacientes\ConsultarPacientes.aspx.designer.cs">
       <DependentUpon>ConsultarPacientes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Pacientes\ModificarPaciente.aspx.cs">
+    <Compile Include="app\Pacientes\ModificarPaciente.aspx.cs">
       <DependentUpon>ModificarPaciente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Pacientes\ModificarPaciente.aspx.designer.cs">
+    <Compile Include="app\Pacientes\ModificarPaciente.aspx.designer.cs">
       <DependentUpon>ModificarPaciente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Pacientes\OficiosPdf.aspx.cs">
+    <Compile Include="app\Pacientes\OficiosPdf.aspx.cs">
       <DependentUpon>OficiosPdf.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Pacientes\OficiosPdf.aspx.designer.cs">
+    <Compile Include="app\Pacientes\OficiosPdf.aspx.designer.cs">
       <DependentUpon>OficiosPdf.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Pacientes\RegistrarPaciente.aspx.cs">
+    <Compile Include="app\Pacientes\RegistrarPaciente.aspx.cs">
       <DependentUpon>RegistrarPaciente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Pacientes\RegistrarPaciente.aspx.designer.cs">
+    <Compile Include="app\Pacientes\RegistrarPaciente.aspx.designer.cs">
       <DependentUpon>RegistrarPaciente.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,9 +9,9 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace SAG
+namespace SAG.app.Pacientes
 {
-    public partial class _Default : Page
+    public partial class BuscarPaciente : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -70,66 +70,63 @@ namespace SAG
             }
         }
 
-        [WebMethod]
-        public static dynamic GetEstadisticaSemanalHome()
-        {
-            //var fechas = new List<string> { "2024-09-20", "2024-09-21", "2024-09-22", "2024-09-23", "2024-09-24", "2024-09-25", "2024-09-26" };
-            //var pacientesIngresados = new List<int> { 5, 10, 8, 15, 22, 7, 9 };
 
-            
+        [WebMethod]
+        public static dynamic GetPacientesFiltro(string EstadoPaciente, string Anio)
+        {
+            List<PacienteFiltro> lista = new List<PacienteFiltro>();
             ControllerPaciente controllerPaciente = new ControllerPaciente();
-
-            List<Estadistica> estadisticas = controllerPaciente.RecuperarEstadisticaSemanalHome();
-            Estadistica estadistic = new Estadistica();
-            // Separar fechas y número de pacientes en listas
-            var fechas = new List<string>();
-            var pacientesIngresados = new List<int>();
-
-            foreach (var estadistica in estadisticas)
-            {
-                fechas.Add(estadistica.Fecha);
-                pacientesIngresados.Add(estadistica.PacientesIngresados);
-            }
-
-            return new
-            {
-                dates = fechas,
-                pacientesIngresados = pacientesIngresados
-            };
-        }
-
-        [WebMethod]
-        public static dynamic GetTablaHome()
-        {
             try
             {
-                ControllerPaciente controllerPaciente = new ControllerPaciente();
-                List<DetallesPaciente> detallesPacientes = controllerPaciente.RecuperarPacientesHome();
-                return detallesPacientes;
-            }
-            catch (Exception ex) 
-            {
-                return ex.Message;
-            }
+                lista = controllerPaciente.BuscarPacientesFiltro(EstadoPaciente, Anio);
 
-            
-        }
-
-        [WebMethod]
-        public static dynamic GetEstadisticaDiariaHome()
-        {
-            try
-            {
-                ControllerPaciente controllerPaciente = new ControllerPaciente();
-                Estadistica estadisticas = controllerPaciente.RecuperarEstadisticaDiariaHome();
-                return estadisticas;
+                return lista;
             }
             catch (Exception ex)
             {
                 return ex.Message;
             }
+
         }
 
+        [WebMethod]
+        public static dynamic GetPacientes(int IdPaciente)
+        {
+
+            List<DetallesPaciente> lista = new List<DetallesPaciente>();
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
+            try
+            {
+                lista = controllerPaciente.ConsultarDetallesPaciente(IdPaciente);
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
+
+
+        [WebMethod]
+        public static dynamic PatchEstadoPaciente(int IdPaciente, string EstadoPaciente)
+        {
+
+            
+            ControllerPaciente controllerPaciente = new ControllerPaciente();
+            try
+            {
+
+
+                return controllerPaciente.CambiarEstadoPaciente(IdPaciente, EstadoPaciente);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
+        }
 
 
     }

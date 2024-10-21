@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
+using System.Web.Script.Serialization;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace SAG
+namespace SAG.app.Pacientes
 {
-    public partial class _Default : Page
+    public partial class ConsultarPacientes : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -71,65 +72,30 @@ namespace SAG
         }
 
         [WebMethod]
-        public static dynamic GetEstadisticaSemanalHome()
+        public static object ConsultarPacientesSAG()
         {
-            //var fechas = new List<string> { "2024-09-20", "2024-09-21", "2024-09-22", "2024-09-23", "2024-09-24", "2024-09-25", "2024-09-26" };
-            //var pacientesIngresados = new List<int> { 5, 10, 8, 15, 22, 7, 9 };
-
-            
+            ApiRespuesta respuesta = new ApiRespuesta();
             ControllerPaciente controllerPaciente = new ControllerPaciente();
+            List <ConsuPacien> lista = new List<ConsuPacien>();
 
-            List<Estadistica> estadisticas = controllerPaciente.RecuperarEstadisticaSemanalHome();
-            Estadistica estadistic = new Estadistica();
-            // Separar fechas y número de pacientes en listas
-            var fechas = new List<string>();
-            var pacientesIngresados = new List<int>();
-
-            foreach (var estadistica in estadisticas)
-            {
-                fechas.Add(estadistica.Fecha);
-                pacientesIngresados.Add(estadistica.PacientesIngresados);
-            }
-
-            return new
-            {
-                dates = fechas,
-                pacientesIngresados = pacientesIngresados
-            };
-        }
-
-        [WebMethod]
-        public static dynamic GetTablaHome()
-        {
             try
             {
-                ControllerPaciente controllerPaciente = new ControllerPaciente();
-                List<DetallesPaciente> detallesPacientes = controllerPaciente.RecuperarPacientesHome();
-                return detallesPacientes;
-            }
-            catch (Exception ex) 
-            {
-                return ex.Message;
-            }
+                respuesta.Action = "Consultar Pacientes";
+                respuesta.Result = "1";
+                respuesta.Message = "Consulta Correcta";
+                //respuesta.Data = controllerPaciente.RecuperarPacientes();
+                lista = controllerPaciente.RecuperarPacientes();
+                respuesta.DataList = null;
 
-            
-        }
-
-        [WebMethod]
-        public static dynamic GetEstadisticaDiariaHome()
-        {
-            try
-            {
-                ControllerPaciente controllerPaciente = new ControllerPaciente();
-                Estadistica estadisticas = controllerPaciente.RecuperarEstadisticaDiariaHome();
-                return estadisticas;
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                //return js.Serialize(respuesta);
+                return lista;
             }
             catch (Exception ex)
             {
                 return ex.Message;
             }
         }
-
 
 
     }

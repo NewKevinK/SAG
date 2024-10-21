@@ -37,25 +37,25 @@
             <div class="sidebar-content">
                 <ul class="lists">
                     <li class="list">
-                        <a href="/View/Pacientes/RegistrarPaciente.aspx" class="nav-link">
+                        <a href="/app/Pacientes/RegistrarPaciente.aspx" class="nav-link">
                             <i class="bx bx-home-alt icon"></i>
                             <span class="link">Registrar Paciente</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="/View/Pacientes/ConsultarPacientes.aspx" class="nav-link">
+                        <a href="/app/Pacientes/ConsultarPacientes.aspx" class="nav-link">
                             <i class="bx bx-bar-chart-alt-2 icon"></i>
                             <span class="link">Consultar Paciente</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="/View/Pacientes/BuscarPaciente.aspx" class="nav-link">
+                        <a href="/app/Pacientes/BuscarPaciente.aspx" class="nav-link">
                             <i class="bx bx-bar-chart-alt-2 icon"></i>
                             <span class="link">Buscar Paciente</span>
                         </a>
                     </li>
                     <li class="list">
-                        <a href="/View/Pacientes/OficiosPdf.aspx" class="nav-link">
+                        <a href="/app/Pacientes/OficiosPdf.aspx" class="nav-link">
                             <i class="bx bx-bell icon"></i>
                             <span class="link">Oficios</span>
                         </a>
@@ -66,7 +66,7 @@
                 </ul>
                 <div class="bottom-cotent">
                     <li class="list">
-                        <a href="/View/Inicio/Soporte.aspx" class="nav-link">
+                        <a href="/app/Inicio/Soporte.aspx" class="nav-link">
                             <i class="bx bx-cog icon"></i>
                             <span class="link">Soporte</span>
                         </a>
@@ -88,11 +88,11 @@
             document.cookie = "JWTToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
             // Redirigir al login
-            window.location.href = '/View/Inicio/Login.aspx';
+            window.location.href = '/app/Inicio/Login.aspx';
 
             // Opcional: Asegurar que la redirección se procesará
             setTimeout(function () {
-                window.location.replace('/View/Inicio/Login.aspx');
+                window.location.replace('/app/Inicio/Login.aspx');
             }, 1000);
         }
 
